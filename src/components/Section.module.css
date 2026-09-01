@@ -1,0 +1,27 @@
+.section {
+  border-bottom: 1px solid var(--rule);
+}
+
+.inner {
+  padding-block: clamp(3rem, 8vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: var(--step-3);
+}
+
+.lede {
+  color: var(--muted);
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: 48ch;
+}
