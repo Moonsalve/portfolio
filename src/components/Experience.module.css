@@ -1,0 +1,100 @@
+.layout {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-left: 2px solid var(--rule);
+  padding-left: 1.25rem;
+}
+
+.role:first-child {
+  border-left-color: var(--accent);
+}
+
+.period {
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.title {
+  font-size: var(--step-1);
+}
+
+.company {
+  color: var(--muted);
+  font-size: var(--step-0);
+}
+
+.separator {
+  color: var(--rule);
+}
+
+.mode {
+  font-size: var(--step--1);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.degree {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+}
+
+.detail {
+  color: var(--muted);
+  font-size: var(--step--1);
+}
+
+.plain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  font-size: var(--step--1);
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.2rem 0.5rem;
+  background: var(--surface);
+}
+
+@media (min-width: 62rem) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) var(--rail-width);
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .side {
+    border-left: 1px solid var(--rule);
+    padding-left: 1.5rem;
+  }
+}

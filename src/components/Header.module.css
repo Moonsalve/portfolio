@@ -1,0 +1,139 @@
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+}
+
+.inner {
+  padding-block: 1.25rem clamp(2.5rem, 6vw, 4.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 6vw, 4rem);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2.5vw, 1.75rem);
+}
+
+.navLink {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: var(--accent);
+}
+
+.identity {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 5vw, 3rem);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: min(100%, 22rem);
+  flex: 1 1 24rem;
+}
+
+.name {
+  font-size: var(--step-4);
+  letter-spacing: -0.03em;
+}
+
+.role {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--muted);
+  line-height: 1.2;
+  font-style: italic;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin-top: 0.35rem;
+}
+
+.metaItem {
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.available {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--accent);
+}
+
+.dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.action {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.85rem;
+  transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease;
+}
+
+.action:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.portrait {
+  flex: 0 0 auto;
+}
+
+.photo,
+.monogram {
+  width: clamp(6.5rem, 18vw, 11rem);
+  height: clamp(6.5rem, 18vw, 11rem);
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  object-fit: cover;
+}
+
+.monogram {
+  display: grid;
+  place-items: center;
+  background: var(--ground);
+  color: var(--accent);
+  font-size: var(--step-3);
+  letter-spacing: 0.05em;
+}

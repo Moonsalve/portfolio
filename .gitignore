@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Notas internas de la búsqueda de empleo: no van al repo público.
+BRIEF.md
+PROYECTOS-RECOMENDADOS.md

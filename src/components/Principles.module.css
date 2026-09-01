@@ -1,0 +1,39 @@
+.list {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.25rem;
+}
+
+.index {
+  font-size: var(--step--1);
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.title {
+  font-size: var(--step-1);
+  max-width: 24ch;
+}
+
+.body {
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 62rem) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .body {
+    max-width: none;
+  }
+}
