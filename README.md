@@ -138,12 +138,16 @@ tests/          pruebas unitarias
 ## Pendientes antes de publicar
 
 - [ ] **Foto profesional** en `public/`, y apuntar `site.photo` en
-      `src/site.config.ts`. Mientras sea `null`, el encabezado muestra un
-      monograma en vez de romper el build con un `next/image` vacío.
-      `site.sleeve` (la carátula del colofón, `CH 06`) es otra cosa y vive
-      aparte a propósito: no es un retrato y su texto alternativo no lo afirma.
-      Es obra de un tercero; conviene tenerlo en cuenta antes de publicar el
-      sitio en un dominio propio.
+      `src/site.config.ts`. El hueco del retrato tiene una cadena de respaldo:
+      `photo` si existe, si no `sleeve`, y si no un monograma. Basta con
+      rellenar `photo` para que la carátula desaparezca sola; no hay que borrar
+      nada.
+      `site.sleeve` es una carátula de disco, no un retrato, y por eso su texto
+      alternativo describe la carátula. Ocupar el hueco del retrato es una
+      decisión de diseño; decir en el `alt` que es una persona sería una
+      afirmación falsa dirigida justamente a quien no puede ver la imagen. Es
+      además obra de un tercero: conviene tenerlo en cuenta antes de publicar
+      el sitio en un dominio propio.
 - [ ] **Dominio.** Actualizar `site.url` — hoy apunta a `juanmonsalve.dev` como
       marcador. Afecta canonical, sitemap, Open Graph y JSON-LD.
 - [ ] **Correo profesional.** `site.email` sigue siendo el de Hotmail. Con el

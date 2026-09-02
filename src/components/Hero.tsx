@@ -38,6 +38,11 @@ export function Hero({ activity }: { activity: Activity }) {
           </ul>
         </div>
 
+        {/*
+          Cadena de respaldo: la foto real cuando exista, la carátula mientras
+          tanto, y el monograma si no hay ninguna de las dos. Cada una lleva su
+          propio texto alternativo; ninguna hereda el de la otra.
+        */}
         <div className={styles.portrait}>
           {site.photo ? (
             <Image
@@ -46,7 +51,17 @@ export function Hero({ activity }: { activity: Activity }) {
               width={site.photo.width}
               height={site.photo.height}
               priority
-              sizes="(min-width: 48rem) 11rem, 7rem"
+              sizes="(min-width: 48rem) 9rem, 5.5rem"
+              className={styles.photo}
+            />
+          ) : site.sleeve ? (
+            <Image
+              src={site.sleeve.src}
+              alt={t.sleeve.alt}
+              width={site.sleeve.width}
+              height={site.sleeve.height}
+              priority
+              sizes="(min-width: 48rem) 9rem, 5.5rem"
               className={styles.photo}
             />
           ) : (

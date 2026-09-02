@@ -196,9 +196,7 @@ export const en: Dictionary = {
         "The form isn't wired up yet. For now, the email above is the direct route.",
     },
   },
-  colophon: {
-    channel: "CH 06",
-    title: "Background noise",
+  sleeve: {
     alt: "Cover of the album OK Computer, by Radiohead",
   },
   footer: {
