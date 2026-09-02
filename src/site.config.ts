@@ -21,6 +21,18 @@ export const site = {
    * monograma tipográfico en vez de romper el build con un `next/image` vacío.
    */
   photo: null as { src: string; width: number; height: number } | null,
+  /**
+   * Carátula del colofón. Es un elemento gráfico del panel, deliberadamente
+   * separado de `photo`: no es un retrato y su texto alternativo no debe
+   * afirmar que lo sea. Obra de un tercero, incluida a petición del autor.
+   */
+  sleeve: {
+    src: "/sleeve.jpg",
+    width: 320,
+    height: 320,
+    album: "OK Computer",
+    artist: "Radiohead",
+  } as { src: string; width: number; height: number; album: string; artist: string } | null,
   cv: "/cv-juan-monsalve.pdf",
   /**
    * ID del formulario de Formspree (`https://formspree.io/f/<id>`), inyectado
