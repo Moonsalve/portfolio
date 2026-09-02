@@ -137,6 +137,14 @@ ol {
   list-style: none;
 }
 
+/* La barra fija flota sobre el contenido: sin este margen, saltar a un ancla
+   deja el título de la sección escondido detrás de ella. */
+:target,
+section[id],
+[id="main"] {
+  scroll-margin-top: 4.5rem;
+}
+
 /* --- Utilidades ------------------------------------------------------------ */
 
 .page {
