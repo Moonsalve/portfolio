@@ -137,6 +137,16 @@ export type Dictionary = {
       readonly unavailable: string;
     };
   };
+  /** Colofón: la carátula del final del panel. */
+  readonly colophon: {
+    readonly channel: string;
+    readonly title: string;
+    /**
+     * Texto alternativo de la carátula. Describe lo que la imagen es de verdad;
+     * nunca debe presentarla como un retrato.
+     */
+    readonly alt: string;
+  };
   readonly footer: {
     readonly built: string;
     readonly source: string;

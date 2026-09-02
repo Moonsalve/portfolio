@@ -1,4 +1,5 @@
 import { getActivity } from "@/lib/github";
+import { Colophon } from "@/components/Colophon";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Footer } from "@/components/Footer";
@@ -23,6 +24,7 @@ export default async function HomePage() {
         <Principles />
         <Experience />
         <Contact />
+        <Colophon />
       </main>
       <Footer />
     </>

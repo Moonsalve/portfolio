@@ -196,6 +196,11 @@ export const es: Dictionary = {
         "El formulario aún no está conectado. Por ahora, el correo de arriba es la vía directa.",
     },
   },
+  colophon: {
+    channel: "CH 06",
+    title: "Ruido de fondo",
+    alt: "Carátula del disco OK Computer, de Radiohead",
+  },
   footer: {
     built: "Hecho con Next.js y TypeScript. Sin analítica ni rastreadores.",
     source: "Código de esta página",

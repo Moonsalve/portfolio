@@ -196,6 +196,11 @@ export const en: Dictionary = {
         "The form isn't wired up yet. For now, the email above is the direct route.",
     },
   },
+  colophon: {
+    channel: "CH 06",
+    title: "Background noise",
+    alt: "Cover of the album OK Computer, by Radiohead",
+  },
   footer: {
     built: "Built with Next.js and TypeScript. No analytics, no trackers.",
     source: "Source for this page",

@@ -140,6 +140,10 @@ tests/          pruebas unitarias
 - [ ] **Foto profesional** en `public/`, y apuntar `site.photo` en
       `src/site.config.ts`. Mientras sea `null`, el encabezado muestra un
       monograma en vez de romper el build con un `next/image` vacío.
+      `site.sleeve` (la carátula del colofón, `CH 06`) es otra cosa y vive
+      aparte a propósito: no es un retrato y su texto alternativo no lo afirma.
+      Es obra de un tercero; conviene tenerlo en cuenta antes de publicar el
+      sitio en un dominio propio.
 - [ ] **Dominio.** Actualizar `site.url` — hoy apunta a `juanmonsalve.dev` como
       marcador. Afecta canonical, sitemap, Open Graph y JSON-LD.
 - [ ] **Correo profesional.** `site.email` sigue siendo el de Hotmail. Con el
