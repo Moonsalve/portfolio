@@ -1,0 +1,108 @@
+.chrome {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--void) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.2rem;
+  flex-wrap: wrap;
+  padding-block: 0.55rem;
+}
+
+.sigil,
+.navLink,
+.led {
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.slash {
+  color: var(--sig);
+}
+
+/* En pantallas angostas la navegación se desliza en una sola fila en vez de
+   apilarse en varios renglones y comerse el primer pantallazo. */
+.navList {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.1rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 0.15rem;
+}
+
+.navList::-webkit-scrollbar {
+  display: none;
+}
+
+.navLink {
+  text-decoration: none;
+  /* La fila se desliza; un enlace partido en dos renglones la rompería. */
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: var(--sig);
+}
+
+.end {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+/* Piloto de estado: el único elemento que se mueve en toda la página. */
+.led {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--trace);
+}
+
+.led::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--trace);
+  box-shadow: 0 0 0 3px var(--trace-soft);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.42;
+  }
+}
+
+.ledShort {
+  display: inline;
+}
+
+.ledLong {
+  display: none;
+}
+
+@media (min-width: 62rem) {
+  .ledShort {
+    display: none;
+  }
+
+  .ledLong {
+    display: inline;
+  }
+}

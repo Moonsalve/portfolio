@@ -2,7 +2,8 @@ import { getActivity } from "@/lib/github";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { TopBar } from "@/components/TopBar";
 import { Principles } from "@/components/Principles";
 import { Projects } from "@/components/Projects";
 import { SkipLink } from "@/components/SkipLink";
@@ -14,8 +15,9 @@ export default async function HomePage() {
   return (
     <>
       <SkipLink />
-      <Header activity={activity} />
+      <TopBar />
       <main id="main">
+        <Hero activity={activity} />
         <Thesis />
         <Projects />
         <Principles />
