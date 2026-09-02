@@ -137,13 +137,13 @@ export type Dictionary = {
       readonly unavailable: string;
     };
   };
-  /** Colofón: la carátula del final del panel. */
-  readonly colophon: {
-    readonly channel: string;
-    readonly title: string;
+  /** Carátula usada como marcador de posición mientras no haya retrato. */
+  readonly sleeve: {
     /**
-     * Texto alternativo de la carátula. Describe lo que la imagen es de verdad;
-     * nunca debe presentarla como un retrato.
+     * Describe lo que la imagen es de verdad. Ocupa el hueco del retrato, pero
+     * el texto alternativo no puede decir que sea un retrato: ese atributo
+     * existe para quien no ve la imagen, y ahí es donde una descripción falsa
+     * se convierte en una mentira y no en una licencia de diseño.
      */
     readonly alt: string;
   };

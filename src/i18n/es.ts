@@ -196,9 +196,7 @@ export const es: Dictionary = {
         "El formulario aún no está conectado. Por ahora, el correo de arriba es la vía directa.",
     },
   },
-  colophon: {
-    channel: "CH 06",
-    title: "Ruido de fondo",
+  sleeve: {
     alt: "Carátula del disco OK Computer, de Radiohead",
   },
   footer: {

@@ -22,17 +22,17 @@ export const site = {
    */
   photo: null as { src: string; width: number; height: number } | null,
   /**
-   * Carátula del colofón. Es un elemento gráfico del panel, deliberadamente
-   * separado de `photo`: no es un retrato y su texto alternativo no debe
-   * afirmar que lo sea. Obra de un tercero, incluida a petición del autor.
+   * Marcador de posición del retrato, hasta que haya una foto profesional.
+   * Se mantiene separado de `photo` a propósito: no es un retrato, así que su
+   * texto alternativo describe la carátula y no a una persona. En cuanto
+   * `photo` deje de ser `null`, esta imagen desaparece sola.
+   * Obra de un tercero, incluida a petición del autor.
    */
   sleeve: {
     src: "/sleeve.jpg",
     width: 320,
     height: 320,
-    album: "OK Computer",
-    artist: "Radiohead",
-  } as { src: string; width: number; height: number; album: string; artist: string } | null,
+  } as { src: string; width: number; height: number } | null,
   cv: "/cv-juan-monsalve.pdf",
   /**
    * ID del formulario de Formspree (`https://formspree.io/f/<id>`), inyectado
