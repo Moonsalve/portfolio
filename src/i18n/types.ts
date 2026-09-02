@@ -50,6 +50,8 @@ export type Dictionary = {
   readonly header: {
     readonly role: string;
     readonly availability: string;
+    /** Versión corta para la barra en pantallas angostas. */
+    readonly availabilityShort: string;
     readonly location: string;
     readonly photoAlt: string;
     readonly monogramLabel: string;
@@ -60,6 +62,17 @@ export type Dictionary = {
       readonly linkedin: string;
     };
     readonly localeSwitch: string;
+  };
+  /** Rótulos de la traza de actividad de GitHub del encabezado. */
+  readonly activity: {
+    readonly eyebrow: string;
+    readonly total: string;
+    readonly active: string;
+    readonly peak: string;
+    readonly live: string;
+    /** Prefijo para la fecha del snapshot versionado. */
+    readonly snapshot: string;
+    readonly empty: string;
   };
   readonly thesis: {
     readonly eyebrow: string;

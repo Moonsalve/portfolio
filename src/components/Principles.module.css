@@ -1,36 +1,41 @@
 .list {
   display: grid;
-  gap: clamp(1.75rem, 4vw, 2.5rem);
+  gap: 1rem;
 }
 
 .item {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: clamp(1.1rem, 2.6vw, 1.4rem);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  border-top: 1px solid var(--rule);
-  padding-top: 1.25rem;
 }
 
 .index {
   font-size: var(--step--1);
-  color: var(--accent);
-  letter-spacing: 0.1em;
+  color: var(--trace);
+  letter-spacing: 0.2em;
 }
 
 .title {
   font-size: var(--step-1);
-  max-width: 24ch;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+  margin-top: 0.3rem;
 }
 
 .body {
-  color: var(--muted);
-  margin-top: 0.25rem;
+  color: var(--soft);
+  font-size: var(--step-0);
+  margin-top: 0.2rem;
 }
 
 @media (min-width: 62rem) {
   .list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
 
   .body {

@@ -4,22 +4,22 @@
   gap: 1px;
   padding: 2px;
   border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  background: var(--surface);
+  border-radius: 3px;
+  background: var(--panel);
 }
 
 .option {
   appearance: none;
   border: 0;
   background: transparent;
-  color: var(--muted);
+  color: var(--soft);
   font-family: var(--font-mono);
   font-size: var(--step--1);
-  letter-spacing: 0.08em;
-  padding: 0.3rem 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 0.28rem 0.55rem;
   border-radius: 2px;
   cursor: pointer;
-  transition: color 120ms ease, background-color 120ms ease;
+  transition: color 140ms ease, background-color 140ms ease;
 }
 
 .option:hover {
@@ -27,6 +27,6 @@
 }
 
 .option[data-active="true"] {
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--sig);
+  color: var(--on-sig);
 }

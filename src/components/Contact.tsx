@@ -11,7 +11,8 @@ export function Contact() {
   const { t } = useLocale();
 
   return (
-    <Section id="contact" title={t.sections.contact.title} lede={t.sections.contact.lede}>
+    <Section id="contact"
+      channel="CH 05" title={t.sections.contact.title} lede={t.sections.contact.lede}>
       <div className={styles.layout}>
         <Reveal className={styles.direct}>
           <p className="eyebrow">{t.contact.directHeading}</p>

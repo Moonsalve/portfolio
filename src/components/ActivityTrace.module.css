@@ -1,0 +1,166 @@
+.panel {
+  margin: 2rem 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.4rem;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+
+.readout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.value {
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--sig);
+  text-shadow: 0 0 20px var(--glow);
+}
+
+.value.alt {
+  color: var(--trace);
+  text-shadow: none;
+}
+
+.label {
+  font-size: var(--step--1);
+  color: var(--soft);
+  line-height: 1.3;
+}
+
+.plot {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 84px;
+  overflow: visible;
+}
+
+.baseline {
+  stroke: var(--rule);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.area {
+  fill: var(--trace-soft);
+}
+
+.line {
+  fill: none;
+  stroke: var(--trace);
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  /* `pathLength=1` normaliza el trazo, así que un solo par de valores sirve
+     para cualquier número de semanas. */
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 2.4s cubic-bezier(0.4, 0, 0.2, 1) 0.25s forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.peakTick {
+  stroke: var(--sig);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+  opacity: 0.65;
+}
+
+.peakDot {
+  fill: var(--sig);
+}
+
+.axis {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.source {
+  order: 1;
+  flex-basis: 100%;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--soft);
+}
+
+.source::before {
+  content: "";
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--soft);
+}
+
+.source[data-live="true"] {
+  color: var(--trace);
+}
+
+.source[data-live="true"]::before {
+  background: var(--trace);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  font-size: var(--step--1);
+  color: var(--soft);
+  margin: 0;
+}
+
+@media (min-width: 48rem) {
+  .panel {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 1.6rem;
+    padding: 1.1rem 1.4rem;
+  }
+
+  .plot {
+    grid-column: auto;
+  }
+
+  .readout {
+    max-width: 9rem;
+  }
+
+  .source {
+    order: 0;
+    flex-basis: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

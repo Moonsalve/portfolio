@@ -15,7 +15,10 @@ export function Thesis() {
   return (
     <section className={styles.section} aria-label={t.thesis.eyebrow}>
       <div className={`page ${styles.inner}`}>
-        <p className="eyebrow">{t.thesis.eyebrow}</p>
+        <p className="channel">
+          <b className="mono">CH 01</b>
+          <span className="mono">{t.thesis.eyebrow}</span>
+        </p>
         <p className={styles.body}>{t.thesis.body}</p>
       </div>
     </section>
