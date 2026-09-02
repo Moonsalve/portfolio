@@ -17,6 +17,7 @@ export const en: Dictionary = {
   header: {
     role: "Software Engineer",
     availability: "Available for remote work",
+    availabilityShort: "Available",
     location: "Bucaramanga, Colombia · GMT−5",
     photoAlt: "Portrait of Juan Monsalve",
     monogramLabel: "Juan Monsalve's initials",
@@ -27,6 +28,15 @@ export const en: Dictionary = {
       linkedin: "LinkedIn",
     },
     localeSwitch: "Change language",
+  },
+  activity: {
+    eyebrow: "GitHub activity",
+    total: "contributions in 12 months",
+    active: "weeks with activity",
+    peak: "busiest week",
+    live: "live",
+    snapshot: "snapshot from",
+    empty: "No activity data available.",
   },
   thesis: {
     eyebrow: "Thesis",
@@ -54,7 +64,7 @@ export const en: Dictionary = {
     apollo: {
       tagline: "Spanish voice assistant, fully local.",
       status: null,
-      access: "Private repo",
+      access: "Public repo",
       body: [
         "An end-to-end voice agent running entirely on device: Silero VAD, faster-whisper large-v3-turbo on CUDA, Piper TTS, and a local LLM through Ollama. No audio ever leaves the machine.",
         "The central decision was taking the LLM off the critical path. Routing has four stages — literal, patterns, embedding similarity, and the model as a last resort — and the metric that governs average latency isn't accuracy, it's the share of turns that reach the LLM at all.",

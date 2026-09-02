@@ -17,6 +17,7 @@ export const es: Dictionary = {
   header: {
     role: "Ingeniero de Software",
     availability: "Disponible para trabajo remoto",
+    availabilityShort: "Disponible",
     location: "Bucaramanga, Colombia · GMT−5",
     photoAlt: "Retrato de Juan Monsalve",
     monogramLabel: "Iniciales de Juan Monsalve",
@@ -27,6 +28,15 @@ export const es: Dictionary = {
       linkedin: "LinkedIn",
     },
     localeSwitch: "Cambiar idioma",
+  },
+  activity: {
+    eyebrow: "Actividad en GitHub",
+    total: "contribuciones en 12 meses",
+    active: "semanas con actividad",
+    peak: "semana más alta",
+    live: "en vivo",
+    snapshot: "instantánea del",
+    empty: "Sin datos de actividad disponibles.",
   },
   thesis: {
     eyebrow: "Tesis",
@@ -54,7 +64,7 @@ export const es: Dictionary = {
     apollo: {
       tagline: "Asistente de voz en español, 100 % local.",
       status: null,
-      access: "Repo privado",
+      access: "Repo público",
       body: [
         "Agente de voz de punta a punta corriendo enteramente en el dispositivo: Silero VAD, faster-whisper large-v3-turbo sobre CUDA, Piper TTS y un LLM local vía Ollama. Ningún audio sale de la máquina.",
         "La decisión central fue sacar al LLM de la ruta crítica. El ruteo tiene cuatro etapas —literal, patrones, similitud por embeddings y el modelo como último recurso— y la métrica que gobierna la latencia media no es la precisión, sino el porcentaje de turnos que llegan al LLM.",

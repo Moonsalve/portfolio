@@ -14,7 +14,7 @@ export const projects = [
     featured: true,
     year: "2026",
     stack: ["Python", "Whisper", "Silero VAD", "Ollama", "Pydantic", "Piper"],
-    repo: null,
+    repo: "https://github.com/Moonsalve/asistente-local",
     rail: [
       { value: "0.135 s", key: "apollo.turn" },
       { value: "~2 ms", key: "apollo.route" },

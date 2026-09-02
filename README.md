@@ -4,9 +4,11 @@ Página personal en Next.js, bilingüe ES/EN, pensada para acompañar aplicacion
 de trabajo. Existe porque los dos mejores proyectos —Apollo y Canchas— están en
 repos privados: la web permite mostrarlos con profundidad sin exponer el código.
 
-El concepto de diseño es un **riel de evidencia**: las cifras medidas viven al
-margen del párrafo que sustentan, como anotaciones de laboratorio. En pantallas
-angostas el riel colapsa debajo de su bloque.
+El concepto de diseño es un **panel de instrumento**: fondo de rejilla
+milimetrada, secciones rotuladas como canales (`CH 01`, `CH 02`…) y las cifras
+medidas presentadas como lecturas al margen del párrafo que sustentan. En el
+encabezado, una traza de osciloscopio dibuja el historial real de
+contribuciones de GitHub.
 
 ## Stack
 
@@ -15,8 +17,9 @@ angostas el riel colapsa debajo de su bloque.
 | Framework | Next.js 16 (App Router) + React 19 |
 | Lenguaje | TypeScript en modo estricto |
 | Estilos | CSS Modules + tokens en `:root` |
-| Tipografía | Newsreader · IBM Plex Sans · IBM Plex Mono (`next/font`) |
+| Tipografía | Chivo · JetBrains Mono, ambas variables (`next/font`) |
 | Formulario | Formspree |
+| Datos | GitHub GraphQL API, con snapshot versionado como respaldo |
 | Pruebas | `node:test` nativo, sin dependencias |
 | Despliegue | Vercel |
 
@@ -36,13 +39,32 @@ Copiar `.env.example` a `.env.local`:
 
 ```
 NEXT_PUBLIC_FORMSPREE_ID=xxxxxxxx
+GITHUB_TOKEN=ghp_xxxxxxxx
 ```
 
-Es el identificador de `https://formspree.io/f/<id>`. **Sin él el formulario no
-se rompe**: se degrada a un aviso que remite al correo directo, en vez de fingir
-un envío que nadie recibiría.
+`NEXT_PUBLIC_FORMSPREE_ID` es el identificador de `https://formspree.io/f/<id>`.
+**Sin él el formulario no se rompe**: se degrada a un aviso que remite al correo
+directo, en vez de fingir un envío que nadie recibiría.
+
+`GITHUB_TOKEN` es un token con permiso `read:user`, usado para consultar el
+calendario de contribuciones. **Sin él la traza tampoco se rompe**: cae al
+snapshot versionado en `src/content/github-activity.json` y lo rotula con su
+fecha, en vez de desaparecer o mentir sobre cuándo se midió.
 
 ## Decisiones que no son obvias
+
+**La traza del encabezado son datos, no decoración.** El boceto tenía una línea
+de osciloscopio dibujada a mano. Sustituirla por el historial real de
+contribuciones cuesta poco y cambia lo que la página afirma: pasa de sugerir
+que aquí se mide, a mostrarlo. La escala es lineal contra el pico del propio
+periodo —sin recortes ni normalizaciones inventadas—, así que la forma de la
+curva es la forma real de la actividad.
+
+**La consulta se cachea un día y nunca tumba la página.** El calendario de
+GitHub cambia como mucho una vez al día; pedirlo en cada visita sería gastar
+cuota para ver lo mismo. Si la API falla, la cuota se agota o el token se
+revoca, se sirve el snapshot: una gráfica que a veces desaparece es peor que
+una gráfica fechada.
 
 **El idioma se resuelve en el servidor.** Cookie `locale` primero, luego
 `Accept-Language`. La alternativa —detectar en el cliente y corregir tras
@@ -59,14 +81,22 @@ usa `Record` sobre uniones cerradas derivadas de `src/content/projects.ts`. Si
 una clave falta en un idioma, **el build falla**; no queda un hueco silencioso.
 Agregar una cifra al riel sin su etiqueta en ambos idiomas también rompe.
 
+**Una línea, no un mapa de calor.** Los cuadritos de GitHub castigan la
+dispersión: 43 semanas vacías se leen como abandono. Una traza con pulsos
+aislados se lee como señal real de un instrumento. Con estos datos concretos
+—64 contribuciones, 10 de 53 semanas activas— la diferencia no es estética,
+es lo que el visitante concluye.
+
 **`font-display: optional`, no `swap`.** Con `swap`, el intercambio de fuente
 reflowaba el encabezado y movía la página entera: 0.282 de CLS. `optional` deja
 la página quieta a cambio de que una primera visita por conexión mala vea las
 fuentes del sistema.
 
-**Newsreader estático de un peso, no variable.** El archivo variable cubre todo
-el rango pero cuesta 60 KB por estilo frente a 23 KB. En una página cuyo LCP es
-texto, esos 70 KB se pagan en la primera pintura. La jerarquía la da el tamaño.
+**Chivo y JetBrains Mono variables, sin `weight`.** Esta dirección usa 300 para
+el cuerpo y 900 para los titulares; en instancias estáticas eso serían cuatro
+descargas en vez de dos. La regla no es "variable siempre": en la iteración
+anterior, con dos pesos de una serif, las instancias estáticas ganaban. Se mide
+cada caso.
 
 **Las variables de fuente van en `<html>`, no en `<body>`.** Los tokens
 `--font-display/body/mono` se declaran en `:root`; un `var()` dentro de otra
@@ -83,12 +113,13 @@ Medido contra el build de producción, no estimado:
 
 | Criterio | Resultado |
 |---|---|
-| Lighthouse (móvil) | 98 rendimiento · 100 accesibilidad · 100 buenas prácticas · 100 SEO |
-| Core Web Vitals | LCP 2.5 s · FCP 0.9 s · CLS 0.000 · TBT 0 ms |
+| Lighthouse (móvil) | 97 rendimiento · 100 accesibilidad · 100 buenas prácticas · 100 SEO |
+| Core Web Vitals | LCP 2.6 s · FCP 0.9 s · CLS 0.000 · TBT 10 ms |
 | Scroll horizontal | ninguno entre 320 y 1600 px, en tema claro y oscuro |
 | Idioma | negociado en servidor; la elección persiste; `<html lang>` se actualiza |
 | Formulario | los cuatro estados, validación en cliente y honeypot, sin red de por medio cuando no corresponde |
 | Sin JavaScript | contenido completo y visible |
+| Traza de actividad | renderizada en servidor, con `aria-label` que enuncia las cifras |
 | Pruebas | 6/6 |
 
 ## Estructura
@@ -97,7 +128,8 @@ Medido contra el build de producción, no estimado:
 src/
   app/          layout (fuentes, metadatos, JSON-LD), página, sitemap, robots, imagen OG
   components/   secciones de la página, cada una con su CSS Module
-  content/      estructura de proyectos: nombres, stack, enlaces, cifras del riel
+  content/      estructura de proyectos y snapshot de actividad de GitHub
+  lib/          acceso a la API de GitHub, con respaldo y caché
   i18n/         contrato Dictionary, diccionarios es/en, store de idioma, negociación
   site.config.ts  identidad, enlaces y banderas de configuración
 tests/          pruebas unitarias
@@ -119,6 +151,15 @@ tests/          pruebas unitarias
       las variables de entorno de Vercel.
 - [ ] **CV.** `public/cv-juan-monsalve.pdf` es el que estaba en `~/Downloads`
       con fecha del 1 de septiembre de 2026. Reemplazarlo cuando cambie.
+- [ ] **Token de GitHub** en las variables de Vercel, para que la traza sea
+      "en vivo" en vez de "instantánea del …".
+- [ ] **La traza sale dispersa, y eso es un dato real, no un bug.** Medido el
+      2026-09-02: 64 contribuciones en 12 meses, 10 de 53 semanas con
+      actividad, 0 contribuciones privadas. Canchas tiene 2 commits por repo y
+      Apollo 22 para 307 tests: el trabajo existe, pero no está versionado. Lo
+      único que arregla la gráfica es commitear con la frecuencia con la que
+      realmente se trabaja. Si hay contribuciones en repos privados, activar
+      además "Include private contributions" en el perfil de GitHub.
 
 ## Despliegue
 

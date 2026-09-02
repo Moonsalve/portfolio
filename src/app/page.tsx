@@ -1,3 +1,4 @@
+import { getActivity } from "@/lib/github";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Footer } from "@/components/Footer";
@@ -7,11 +8,13 @@ import { Projects } from "@/components/Projects";
 import { SkipLink } from "@/components/SkipLink";
 import { Thesis } from "@/components/Thesis";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const activity = await getActivity();
+
   return (
     <>
       <SkipLink />
-      <Header />
+      <Header activity={activity} />
       <main id="main">
         <Thesis />
         <Projects />

@@ -1,9 +1,10 @@
 .footer {
-  background: var(--surface);
+  border-top: 1px solid var(--rule);
+  background: var(--panel);
 }
 
 .inner {
-  padding-block: 2rem;
+  padding-block: 1.8rem 2.6rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -12,5 +13,7 @@
 
 .line {
   font-size: var(--step--1);
-  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--soft);
 }

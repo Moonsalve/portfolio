@@ -13,6 +13,7 @@ export function Experience() {
   return (
     <Section
       id="experience"
+      channel="CH 04"
       title={t.sections.experience.title}
       lede={t.sections.experience.lede}
     >

@@ -12,6 +12,7 @@ export function Principles() {
   return (
     <Section
       id="approach"
+      channel="CH 03"
       title={t.sections.approach.title}
       lede={t.sections.approach.lede}
     >

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, Newsreader } from "next/font/google";
+import { Chivo, JetBrains_Mono } from "next/font/google";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
 import { resolveLocale } from "@/i18n/server";
 import { copy } from "@/i18n";
@@ -7,44 +7,28 @@ import { site } from "@/site.config";
 import "./globals.css";
 
 /**
- * `display: "optional"` en las tres familias, no `swap`.
+ * `display: "optional"` en ambas familias, no `swap`.
  *
- * Medido: con `swap`, el intercambio de fuente reflowaba el encabezado y movía
- * la página entera — 0.282 de CLS. `optional` da una ventana corta y, si la
- * fuente no llegó, no la aplica en esa carga: la deja en caché para la
- * siguiente. El costo es que una primera visita por una conexión mala ve las
- * fuentes del sistema. El beneficio es que la página nunca salta bajo el cursor
- * de quien la está leyendo. Con las fuentes precargadas y en 73 KB, la ventana
- * se cumple en cualquier conexión razonable.
+ * Medido en la iteración anterior: con `swap`, el intercambio de fuente
+ * reflowaba el encabezado y movía la página entera — 0.282 de CLS. `optional`
+ * da una ventana corta y, si la fuente no llegó, no la aplica en esa carga: la
+ * deja en caché para la siguiente. La página nunca salta bajo el cursor de
+ * quien la está leyendo.
+ *
+ * Sin `weight`: ambas son variables, así que un archivo por familia cubre todo
+ * el rango. Esta dirección usa 300 para el cuerpo y 900 para los titulares; en
+ * instancias estáticas eso serían cuatro descargas en vez de dos.
  */
-
-/**
- * Un solo peso, dos estilos: dos archivos estáticos de ~23 KB. El archivo
- * variable de Newsreader cubre todo el rango de pesos pero cuesta 60 KB por
- * estilo, y en una página cuyo LCP es texto esos 70 KB de más se pagan en la
- * primera pintura. Los títulos van en 400: la jerarquía la da el tamaño.
- */
-const newsreader = Newsreader({
+const chivo = Chivo({
   subsets: ["latin"],
   display: "optional",
-  variable: "--font-newsreader",
-  weight: ["400"],
-  style: ["normal", "italic"],
+  variable: "--font-chivo",
 });
 
-/** Plex no es variable en Google Fonts: solo el peso que la hoja usa de verdad. */
-const plexSans = IBM_Plex_Sans({
+const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   display: "optional",
-  variable: "--font-plex-sans",
-  weight: ["400"],
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  display: "optional",
-  variable: "--font-plex-mono",
-  weight: ["400"],
+  variable: "--font-jetbrains",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -78,8 +62,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f3f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#11151b" },
+    { media: "(prefers-color-scheme: light)", color: "#eef1f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#07090c" },
   ],
 };
 
@@ -114,7 +98,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang={locale}
-      className={`${newsreader.variable} ${plexSans.variable} ${plexMono.variable}`}
+      className={`${chivo.variable} ${jetbrains.variable}`}
     >
       <body>
         <script

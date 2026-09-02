@@ -8,6 +8,7 @@ export const site = {
   /** Dominio definitivo. Actualizar tras comprar el dominio (ver README). */
   url: "https://juanmonsalve.dev",
   email: "JuanMonsalve.23@hotmail.com",
+  githubUser: "Moonsalve",
   github: "https://github.com/Moonsalve",
   /**
    * Sin verificar: el handle de GitHub asumido resultó estar equivocado, así
