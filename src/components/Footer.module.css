@@ -1,10 +1,10 @@
 .footer {
-  border-top: 1px solid var(--rule);
-  background: var(--panel);
+  border-top: var(--border) solid var(--rule);
+  background: var(--paper);
 }
 
 .inner {
-  padding-block: 1.8rem 2.6rem;
+  padding-block: 1.2rem 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -14,6 +14,5 @@
 .line {
   font-size: var(--step--1);
   letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--soft);
+  color: var(--ink-2);
 }

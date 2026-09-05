@@ -29,13 +29,7 @@ export function Hero({ activity }: { activity: Activity }) {
             <span className={styles.given}>Juan</span>
             <span className={styles.family}>Monsalve</span>
           </h1>
-          <p className={`mono ${styles.role}`}>{t.header.role}</p>
-          <ul className={styles.meta}>
-            <li className={`mono ${styles.metaItem}`}>{t.header.location}</li>
-            <li className={`mono ${styles.metaItem}`}>
-              {t.experience.languages.items.join(" · ")}
-            </li>
-          </ul>
+          <p className={`mono ${styles.role}`}>&gt;&gt;&gt; {t.header.role}</p>
         </div>
 
         {/*
@@ -69,6 +63,29 @@ export function Hero({ activity }: { activity: Activity }) {
           )}
         </div>
       </div>
+
+      <dl className={styles.specs}>
+        <div className={styles.spec}>
+          <dt className={`mono ${styles.specKey}`}>{t.specs.location}</dt>
+          <dd className={`mono ${styles.specValue}`}>
+            {site.location.city}, {site.location.country}
+          </dd>
+        </div>
+        <div className={styles.spec}>
+          <dt className={`mono ${styles.specKey}`}>{t.specs.timezone}</dt>
+          <dd className={`mono ${styles.specValue}`}>{site.location.utcOffset}</dd>
+        </div>
+        <div className={styles.spec}>
+          <dt className={`mono ${styles.specKey}`}>{t.specs.mode}</dt>
+          <dd className={`mono ${styles.specValue} ${styles.hz}`}>{t.header.availability}</dd>
+        </div>
+        <div className={styles.spec}>
+          <dt className={`mono ${styles.specKey}`}>{t.specs.languages}</dt>
+          <dd className={`mono ${styles.specValue}`}>
+            {t.experience.languages.items.join(" / ")}
+          </dd>
+        </div>
+      </dl>
 
       <ActivityTrace activity={activity} />
 

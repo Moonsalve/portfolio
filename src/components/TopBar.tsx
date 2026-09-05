@@ -23,9 +23,12 @@ export function TopBar() {
 
   return (
     <header className={styles.chrome}>
+      {/* Va dentro de la barra fija, no encima: así la franja acompaña toda la
+          página en vez de desaparecer con el primer scroll. */}
+      <div className="stripe" aria-hidden="true" />
       <div className={`page ${styles.inner}`}>
         <span className={`mono ${styles.sigil}`} aria-hidden="true">
-          JM <span className={styles.slash}>{"//"}</span>
+          JM <span className={styles.slash}>{"/"}</span> REV 2026.09
         </span>
 
         <nav aria-label={t.nav.work}>

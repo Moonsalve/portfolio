@@ -1,58 +1,57 @@
 /* ---------------------------------------------------------------------------
-   Dirección «panel de instrumento».
-   Esta paleta nace en oscuro: el tema claro no es un añadido, es la misma
-   escala invertida. Todo color se declara en :root y el bloque claro redefine
-   exactamente los mismos nombres; ningún color existe solo dentro de un @media.
+   Dirección «brutalista industrial».
+   Dos sustratos del mismo lenguaje: impresión suiza industrial en claro (papel
+   de documentación, tinta de carbón) y telemetría táctica en oscuro (CRT
+   apagado, fósforo blanco). Mismo rojo de peligro, misma rejilla, misma
+   tipografía. Todo color se declara en :root y el bloque oscuro redefine los
+   mismos nombres; ninguno existe solo dentro de un @media.
    --------------------------------------------------------------------------- */
 
 :root {
-  color-scheme: dark light;
+  color-scheme: light dark;
 
-  --void: #07090c;
-  --panel: #0e1218;
-  --raise: #141a22;
-  --ink: #e7edf3;
-  --soft: #7c8894;
-  --sig: #ff6a3d;
-  --trace: #4fd8b0;
-  --rule: #1e2630;
-  --glow: rgba(255, 106, 61, 0.28);
-  --sig-soft: rgba(255, 106, 61, 0.12);
-  --trace-soft: rgba(79, 216, 176, 0.12);
-  --on-sig: #0a0a0a;
+  --paper: #f4f4f0;
+  --panel: #f4f4f0;
+  --raise: #e9e9e4;
+  --ink: #0a0a0a;
+  --ink-2: #4a4a46;
+  --rule: #0a0a0a;
+  --hairline: rgba(10, 10, 10, 0.2);
+  /* Rojo estructural para franjas, rellenos y la traza. */
+  --hazard: #e61919;
+  /* Rojo tipográfico: el estructural no llega a AA en texto pequeño. */
+  --hazard-ink: #a11010;
+  --on-hazard: #f4f4f0;
 
-  --font-display: var(--font-chivo), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-archivo), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.83rem);
-  --step-0: clamp(0.97rem, 0.94rem + 0.16vw, 1.05rem);
-  --step-1: clamp(1.18rem, 1.1rem + 0.4vw, 1.4rem);
-  --step-2: clamp(1.45rem, 1.28rem + 0.85vw, 2.05rem);
-  --step-3: clamp(1.9rem, 1.55rem + 1.7vw, 3.1rem);
-  --step-4: clamp(2.6rem, 1.7rem + 4.4vw, 6.5rem);
+  --step--1: 0.7rem;
+  --step-0: clamp(0.94rem, 0.91rem + 0.14vw, 1rem);
+  --step-1: clamp(1.1rem, 1.03rem + 0.34vw, 1.3rem);
+  --step-2: clamp(1.4rem, 1.2rem + 1vw, 2.1rem);
+  --step-3: clamp(1.8rem, 1.35rem + 2.2vw, 3.4rem);
+  --step-4: clamp(2.2rem, 0.6rem + 8vw, 11rem);
 
-  --measure: 62ch;
-  --readout-width: 18rem;
-  --gutter: clamp(1rem, 4vw, 2.6rem);
-  --page-max: 76rem;
-  --radius: 4px;
-  --grid-cell: 44px;
+  --measure: 64ch;
+  --readout-width: 19rem;
+  --gutter: clamp(1rem, 3vw, 2rem);
+  --page-max: 88rem;
+  --border: 2px;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
-    --void: #eef1f4;
-    --panel: #ffffff;
-    --raise: #f6f8fa;
-    --ink: #0b1017;
-    --soft: #55616e;
-    --sig: #c53c0d;
-    --trace: #0b7d5f;
-    --rule: #dce2e8;
-    --glow: rgba(197, 60, 13, 0.16);
-    --sig-soft: rgba(197, 60, 13, 0.09);
-    --trace-soft: rgba(11, 125, 95, 0.1);
-    --on-sig: #ffffff;
+    --paper: #0a0a0a;
+    --panel: #101010;
+    --raise: #171717;
+    --ink: #eaeaea;
+    --ink-2: #8f8f8b;
+    --rule: #33332f;
+    --hairline: rgba(234, 234, 234, 0.16);
+    --hazard: #ff2a2a;
+    --hazard-ink: #ff5c5c;
+    --on-hazard: #0a0a0a;
   }
 }
 
@@ -71,19 +70,26 @@ html {
 
 body {
   margin: 0;
-  background: var(--void);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: var(--step-0);
-  line-height: 1.62;
+  line-height: 1.5;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  /* Rejilla milimetrada: el fondo de un instrumento, no una textura decorativa. */
-  background-image: linear-gradient(var(--rule) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-  background-size: var(--grid-cell) var(--grid-cell);
-  background-position: -1px -1px;
+}
+
+/* Grano mecánico: una sola capa fija y sin eventos. Nunca sobre un contenedor
+   que hace scroll, porque eso repinta la GPU en cada frame. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
 h1,
@@ -91,8 +97,9 @@ h2,
 h3 {
   margin: 0;
   font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.035em;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
@@ -104,30 +111,28 @@ p {
 
 a {
   color: inherit;
-  text-decoration-color: var(--rule);
-  text-underline-offset: 0.22em;
-  text-decoration-thickness: 1px;
-  transition: color 140ms ease, text-decoration-color 140ms ease;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  transition: color 120ms linear;
 }
 
 a:hover {
-  color: var(--sig);
-  text-decoration-color: var(--sig);
+  color: var(--hazard-ink);
 }
 
+/* Rigidez mecánica: sin esquinas redondeadas en ninguna parte. */
 :focus-visible {
-  outline: 2px solid var(--sig);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline: 3px solid var(--hazard-ink);
+  outline-offset: 2px;
+  border-radius: 0;
 }
 
 code {
   font-family: var(--font-mono);
-  font-size: 0.88em;
-  background: var(--trace-soft);
-  color: var(--trace);
-  padding: 0.08em 0.32em;
-  border-radius: 3px;
+  font-size: 0.9em;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.06em 0.3em;
 }
 
 ul,
@@ -135,14 +140,6 @@ ol {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-/* La barra fija flota sobre el contenido: sin este margen, saltar a un ancla
-   deja el título de la sección escondido detrás de ella. */
-:target,
-section[id],
-[id="main"] {
-  scroll-margin-top: 4.5rem;
 }
 
 /* --- Utilidades ------------------------------------------------------------ */
@@ -156,41 +153,28 @@ section[id],
 .mono {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-}
-
-/* Rótulo de canal: la etiqueta que separa cada sección del panel. */
-.channel {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--soft);
-  margin: 0;
 }
 
-.channel b {
-  color: var(--sig);
-  font-weight: 400;
+/* Franja de advertencia: elemento estructural, no adorno. */
+.stripe {
+  height: 12px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--hazard) 0 12px,
+    var(--paper) 12px 24px
+  );
 }
 
-.channel::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--rule);
-}
-
-/* Rótulo de bloque, un nivel por debajo del rótulo de canal. */
+/* Rótulo de bloque dentro de una sección. Las secciones no llevan rótulo: su
+   estructura la dan la regla de 2px y la escala del titular. */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--step--1);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--soft);
+  color: var(--ink-2);
   margin: 0;
 }
 
@@ -209,28 +193,41 @@ section[id],
 .skip-link {
   position: absolute;
   left: 0.75rem;
-  top: -4rem;
-  z-index: 30;
-  background: var(--panel);
-  color: var(--ink);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
+  top: -5rem;
+  z-index: 70;
+  /* El rojo estructural se queda en 4.22:1 con el papel; para texto va el
+     tipográfico, que sí llega a AA. */
+  background: var(--hazard-ink);
+  color: var(--on-hazard);
+  border: var(--border) solid var(--rule);
   padding: 0.6rem 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   text-decoration: none;
-  transition: top 140ms ease;
+  transition: top 120ms linear;
 }
 
 .skip-link:focus {
   top: 0.75rem;
+  color: var(--on-hazard);
+}
+
+/* La barra fija flota sobre el contenido: sin este margen, saltar a un ancla
+   deja el título de la sección escondido detrás de ella. */
+:target,
+section[id],
+[id="main"] {
+  scroll-margin-top: 5rem;
 }
 
 /* --- Revelación al hacer scroll -------------------------------------------- */
 
 .reveal {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(10px);
+  transition: opacity 420ms linear, transform 420ms linear;
 }
 
 .reveal[data-visible="true"] {

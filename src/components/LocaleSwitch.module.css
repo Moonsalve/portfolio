@@ -1,25 +1,26 @@
 .wrap {
   display: inline-flex;
-  align-items: center;
-  gap: 1px;
-  padding: 2px;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  background: var(--panel);
+  align-items: stretch;
+  border: 1.5px solid var(--rule);
 }
 
 .option {
   appearance: none;
   border: 0;
+  border-right: 1.5px solid var(--rule);
   background: transparent;
-  color: var(--soft);
+  color: var(--ink-2);
   font-family: var(--font-mono);
   font-size: var(--step--1);
-  letter-spacing: 0.1em;
-  padding: 0.28rem 0.55rem;
-  border-radius: 2px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.24rem 0.5rem;
   cursor: pointer;
-  transition: color 140ms ease, background-color 140ms ease;
+  transition: background-color 120ms linear, color 120ms linear;
+}
+
+.option:last-child {
+  border-right: 0;
 }
 
 .option:hover {
@@ -27,6 +28,6 @@
 }
 
 .option[data-active="true"] {
-  background: var(--sig);
-  color: var(--on-sig);
+  background: var(--hazard-ink);
+  color: var(--on-hazard);
 }

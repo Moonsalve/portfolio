@@ -1,103 +1,87 @@
 .layout {
   display: grid;
-  gap: clamp(1.6rem, 4vw, 2.5rem);
+  gap: clamp(1.5rem, 4vw, 2.4rem);
 }
 
+/* Registro tabular: una regla fina por fila, no caja por elemento. */
 .timeline {
   display: flex;
   flex-direction: column;
+  border-top: var(--border) solid var(--rule);
 }
 
 .role {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding: 0 0 1.5rem 1.5rem;
-  border-left: 1px solid var(--rule);
-}
-
-.role:last-child {
-  padding-bottom: 0;
-}
-
-/* Marca de canal sobre la línea de tiempo. */
-.role::before {
-  content: "";
-  position: absolute;
-  left: -4.5px;
-  top: 0.55rem;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--void);
-  border: 1.5px solid var(--rule);
-}
-
-.role:first-child::before {
-  border-color: var(--sig);
-  box-shadow: 0 0 0 3px var(--glow);
+  gap: 0.15rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .period {
   font-size: var(--step--1);
-  color: var(--soft);
-  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  letter-spacing: 0.1em;
 }
 
 .title {
   font-size: var(--step-1);
   font-weight: 700;
-  letter-spacing: -0.015em;
+  text-transform: none;
+  letter-spacing: -0.01em;
 }
 
 .company {
-  color: var(--soft);
-  font-size: var(--step-0);
+  color: var(--ink-2);
+  font-size: 0.9rem;
 }
 
 .separator {
-  color: var(--rule);
+  color: var(--hairline);
 }
 
 .mode {
   font-size: var(--step--1);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .side {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-  background: var(--panel);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: clamp(1.1rem, 2.6vw, 1.4rem);
+  gap: var(--border);
+  background: var(--rule);
+  border: var(--border) solid var(--rule);
   align-self: start;
 }
 
 .block {
+  background: var(--paper);
+  padding: 0.9rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
+  min-width: 0;
 }
 
 .degree {
   font-size: var(--step-1);
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
 }
 
 .detail {
-  color: var(--soft);
+  color: var(--ink-2);
   font-size: var(--step--1);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .plain {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
 }
 
 .tags {
@@ -108,17 +92,18 @@
 
 .tag {
   font-size: var(--step--1);
-  letter-spacing: 0.06em;
-  color: var(--soft);
-  border: 1px solid var(--rule);
-  border-radius: 2px;
-  padding: 0.16rem 0.45rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  border: 1.5px solid var(--hairline);
+  padding: 0.12rem 0.4rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
 }
 
 @media (min-width: 62rem) {
   .layout {
     grid-template-columns: minmax(0, 1fr) var(--readout-width);
-    column-gap: clamp(1.8rem, 3.5vw, 2.8rem);
+    column-gap: clamp(1.6rem, 3vw, 2.4rem);
     align-items: start;
   }
 }

@@ -2,18 +2,17 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background: color-mix(in srgb, var(--void) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  border-bottom: var(--border) solid var(--rule);
 }
 
 .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem 1.2rem;
+  gap: 0.4rem 1.2rem;
   flex-wrap: wrap;
-  padding-block: 0.55rem;
+  padding-block: 0.45rem;
 }
 
 .sigil,
@@ -21,12 +20,11 @@
 .led {
   font-size: var(--step--1);
   letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--soft);
+  color: var(--ink-2);
 }
 
 .slash {
-  color: var(--sig);
+  color: var(--hazard-ink);
 }
 
 /* En pantallas angostas la navegación se desliza en una sola fila en vez de
@@ -46,47 +44,33 @@
 
 .navLink {
   text-decoration: none;
-  /* La fila se desliza; un enlace partido en dos renglones la rompería. */
   white-space: nowrap;
 }
 
 .navLink:hover {
-  color: var(--sig);
+  color: var(--hazard-ink);
 }
 
 .end {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.8rem;
   flex-wrap: wrap;
 }
 
-/* Piloto de estado: el único elemento que se mueve en toda la página. */
 .led {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  color: var(--trace);
+  gap: 0.4rem;
+  color: var(--hazard-ink);
 }
 
+/* Marcador de estado: cuadrado, no punto. Aquí no hay radios. */
 .led::before {
   content: "";
   width: 0.45rem;
   height: 0.45rem;
-  border-radius: 50%;
-  background: var(--trace);
-  box-shadow: 0 0 0 3px var(--trace-soft);
-  animation: pulse 2.6s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.42;
-  }
+  background: var(--hazard);
 }
 
 .ledShort {

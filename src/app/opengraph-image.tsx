@@ -23,19 +23,19 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#07090c",
-          color: "#e7edf3",
+          background: "#f4f4f0",
+          color: "#0a0a0a",
           padding: "72px 80px",
           fontFamily: "sans-serif",
           textTransform: "uppercase",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 24, letterSpacing: 6, color: "#7c8894" }}>
+          <div style={{ fontSize: 24, letterSpacing: 6, color: "#4a4a46" }}>
             {place}
           </div>
-          <div style={{ fontSize: 96, fontWeight: 600, letterSpacing: -2 }}>{site.name}</div>
-          <div style={{ fontSize: 40, color: "#ff6a3d" }}>{t.header.role}</div>
+          <div style={{ fontSize: 96, fontWeight: 900, letterSpacing: -4 }}>{site.name}</div>
+          <div style={{ fontSize: 40, color: "#a11010" }}>{t.header.role}</div>
         </div>
 
         <div
@@ -43,9 +43,9 @@ export default function OpenGraphImage() {
             display: "flex",
             fontSize: 28,
             lineHeight: 1.4,
-            color: "#7c8894",
+            color: "#4a4a46",
             maxWidth: 900,
-            borderLeft: "4px solid #ff6a3d",
+            borderLeft: "8px solid #e61919",
             paddingLeft: 28,
           }}
         >
