@@ -47,19 +47,6 @@ export const projects = [
     ],
   },
   {
-    id: "goatguard",
-    name: "GoatGuard",
-    featured: false,
-    year: "2026",
-    stack: ["FastAPI", "Scapy", "Flutter", "Firebase Cloud Messaging"],
-    repo: "https://github.com/Moonsalve/goatguard-server",
-    rail: [
-      { value: "3", key: "goatguard.repos" },
-      { value: "FCM", key: "goatguard.push" },
-      { value: "OSS", key: "goatguard.public" },
-    ],
-  },
-  {
     id: "leadTriage",
     name: "Lead Triage Agent",
     featured: false,

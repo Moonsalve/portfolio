@@ -3,7 +3,7 @@ import type { Dictionary } from "./types";
 export const en: Dictionary = {
   localeName: "English",
   meta: {
-    title: "Juan Monsalve — Software Engineer",
+    title: "Juan Monsalve — Systems and Computing Engineer",
     description:
       "Software engineer in Bucaramanga, Colombia. I build systems where the language model is one component, not the whole architecture.",
   },
@@ -15,7 +15,7 @@ export const en: Dictionary = {
     skipToContent: "Skip to content",
   },
   header: {
-    role: "Software Engineer",
+    role: "Systems and Computing Engineer",
     availability: "Available for remote work",
     availabilityShort: "Available",
     location: "Bucaramanga, Colombia · GMT−5",
@@ -38,6 +38,12 @@ export const en: Dictionary = {
     snapshot: "snapshot from",
     empty: "No activity data available.",
   },
+  specs: {
+    location: "Location",
+    timezone: "Time zone",
+    mode: "Mode",
+    languages: "Languages",
+  },
   thesis: {
     eyebrow: "Thesis",
     body: "I build systems where the language model is one component, not the whole architecture. Most of my engineering judgment goes into deciding where a model earns its latency and cost — and where a cheaper deterministic path wins.",
@@ -45,7 +51,7 @@ export const en: Dictionary = {
   sections: {
     work: {
       title: "Work",
-      lede: "Four systems, each with the decision that was hard to make. The figures in the margin are measured, not estimated.",
+      lede: "Three systems, each with the decision that was hard to make. The figures in the margin are measured, not estimated.",
     },
     approach: {
       title: "How I work",
@@ -70,15 +76,6 @@ export const en: Dictionary = {
         "The central decision was taking the LLM off the critical path. Routing has four stages — literal, patterns, embedding similarity, and the model as a last resort — and the metric that governs average latency isn't accuracy, it's the share of turns that reach the LLM at all.",
         "The bug that taught the most: cosine scores for positives and negatives overlapped, so no absolute threshold could separate them. The fix was centering the embeddings and adding an explicit negative class, `_fallback`, instead of going back to tune the number again.",
         "Execution control: tools live behind an allowlist with strict Pydantic schemas. The model picks an intent and its arguments; it never emits shell.",
-      ],
-    },
-    goatguard: {
-      tagline: "Network monitoring platform.",
-      status: null,
-      access: "3 public repos",
-      body: [
-        "A distributed system in three pieces: a FastAPI server, a Python packet-capture agent built on Scapy, and a Flutter app with push notifications over Firebase Cloud Messaging.",
-        "Device discovery on the network, event detection, and alerts that reach the phone without the app being open. This is the project you can read end to end on GitHub.",
       ],
     },
     canchas: {
@@ -107,9 +104,6 @@ export const en: Dictionary = {
     "apollo.route": "semantic routing, against 250–500 ms for the LLM",
     "apollo.suite": "positives and negatives in the intent bench",
     "apollo.tests": "automated tests passing",
-    "goatguard.repos": "repositories: server, agent, and app",
-    "goatguard.push": "push notifications to the Flutter app",
-    "goatguard.public": "open and readable on GitHub",
     "canchas.shipped": "in production, self-updating from its own server",
     "canchas.models": "domain models in Postgres",
     "canchas.commits": "commits across two typed repos, April to September",
@@ -155,7 +149,7 @@ export const en: Dictionary = {
     remote: "Remote",
     education: {
       heading: "Education",
-      degree: "B.Sc. Systems Engineering",
+      degree: "B.Sc. Systems and Computing Engineering",
       school: "Universidad Pontificia Bolivariana, Bucaramanga",
       period: "2023 – 2026",
     },

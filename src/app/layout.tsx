@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Chivo, JetBrains_Mono } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
 import { resolveLocale } from "@/i18n/server";
 import { copy } from "@/i18n";
@@ -9,20 +9,20 @@ import "./globals.css";
 /**
  * `display: "optional"` en ambas familias, no `swap`.
  *
- * Medido en la iteración anterior: con `swap`, el intercambio de fuente
- * reflowaba el encabezado y movía la página entera — 0.282 de CLS. `optional`
+ * Medido en una iteración anterior: con `swap`, el intercambio de fuente
+ * reflowaba el encabezado y movía la página entera, 0.282 de CLS. `optional`
  * da una ventana corta y, si la fuente no llegó, no la aplica en esa carga: la
- * deja en caché para la siguiente. La página nunca salta bajo el cursor de
- * quien la está leyendo.
+ * deja en caché para la siguiente. La página nunca salta bajo el cursor.
  *
- * Sin `weight`: ambas son variables, así que un archivo por familia cubre todo
- * el rango. Esta dirección usa 300 para el cuerpo y 900 para los titulares; en
- * instancias estáticas eso serían cuatro descargas en vez de dos.
+ * Archivo variable en vez de Archivo Black: el eje de peso llega a 900, así que
+ * un solo archivo cubre el cuerpo (400) y la macrotipografía (900). Archivo
+ * Black es una familia aparte y habría sido una descarga más antes del LCP,
+ * a cambio de una diferencia de diseño que a 6 rem no se nota.
  */
-const chivo = Chivo({
+const archivo = Archivo({
   subsets: ["latin"],
   display: "optional",
-  variable: "--font-chivo",
+  variable: "--font-archivo",
 });
 
 const jetbrains = JetBrains_Mono({
@@ -62,8 +62,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#eef1f4" },
-    { media: "(prefers-color-scheme: dark)", color: "#07090c" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f4f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
   ],
 };
 
@@ -98,7 +98,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang={locale}
-      className={`${chivo.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${jetbrains.variable}`}
     >
       <body>
         <script

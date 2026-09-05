@@ -3,7 +3,7 @@ import type { Dictionary } from "./types";
 export const es: Dictionary = {
   localeName: "Español",
   meta: {
-    title: "Juan Monsalve — Ingeniero de Software",
+    title: "Juan Monsalve — Ingeniero en Sistemas e Informática",
     description:
       "Ingeniero de software en Bucaramanga, Colombia. Construyo sistemas donde el modelo de lenguaje es una pieza más de la arquitectura, no el sistema entero.",
   },
@@ -15,7 +15,7 @@ export const es: Dictionary = {
     skipToContent: "Saltar al contenido",
   },
   header: {
-    role: "Ingeniero de Software",
+    role: "Ingeniero en Sistemas e Informática",
     availability: "Disponible para trabajo remoto",
     availabilityShort: "Disponible",
     location: "Bucaramanga, Colombia · GMT−5",
@@ -38,6 +38,12 @@ export const es: Dictionary = {
     snapshot: "instantánea del",
     empty: "Sin datos de actividad disponibles.",
   },
+  specs: {
+    location: "Ubicación",
+    timezone: "Huso",
+    mode: "Modalidad",
+    languages: "Idiomas",
+  },
   thesis: {
     eyebrow: "Tesis",
     body: "Construyo sistemas donde el modelo de lenguaje es una pieza más de la arquitectura, no el sistema entero. Mi criterio de ingeniería se va en decidir dónde un modelo justifica su latencia y su costo, y dónde gana un camino determinista más barato.",
@@ -45,7 +51,7 @@ export const es: Dictionary = {
   sections: {
     work: {
       title: "Proyectos",
-      lede: "Cuatro sistemas, cada uno con la decisión que costó tomarla. Las cifras del margen están medidas, no estimadas.",
+      lede: "Tres sistemas, cada uno con la decisión que costó tomarla. Las cifras del margen están medidas, no estimadas.",
     },
     approach: {
       title: "Cómo trabajo",
@@ -70,15 +76,6 @@ export const es: Dictionary = {
         "La decisión central fue sacar al LLM de la ruta crítica. El ruteo tiene cuatro etapas —literal, patrones, similitud por embeddings y el modelo como último recurso— y la métrica que gobierna la latencia media no es la precisión, sino el porcentaje de turnos que llegan al LLM.",
         "El bug que más enseñó: los puntajes coseno de positivos y negativos se solapaban, así que ningún umbral absoluto los separaba. Se resolvió centrando los embeddings y agregando una clase negativa explícita, `_fallback`, en vez de seguir moviendo el número.",
         "Control de ejecución: las herramientas viven en una allowlist con esquemas Pydantic estrictos. El modelo elige una intención y sus argumentos; nunca emite shell.",
-      ],
-    },
-    goatguard: {
-      tagline: "Plataforma de monitoreo de red.",
-      status: null,
-      access: "3 repos públicos",
-      body: [
-        "Sistema distribuido en tres piezas: un servidor FastAPI, un agente de captura de paquetes en Python con Scapy, y una app Flutter con notificaciones push vía Firebase Cloud Messaging.",
-        "Descubrimiento de dispositivos en la red, detección de eventos y alertas que llegan al teléfono sin que la app esté abierta. Es el proyecto que sí puedes leer entero en GitHub.",
       ],
     },
     canchas: {
@@ -107,9 +104,6 @@ export const es: Dictionary = {
     "apollo.route": "ruteo semántico, frente a 250–500 ms del LLM",
     "apollo.suite": "positivos y negativos del banco de intenciones",
     "apollo.tests": "pruebas automatizadas en verde",
-    "goatguard.repos": "repositorios: servidor, agente y app",
-    "goatguard.push": "notificaciones push a la app Flutter",
-    "goatguard.public": "código abierto y legible en GitHub",
     "canchas.shipped": "en producción, con auto-actualización desde el servidor propio",
     "canchas.models": "modelos de dominio en Postgres",
     "canchas.commits": "commits en dos repos tipados, entre abril y septiembre",
@@ -155,7 +149,7 @@ export const es: Dictionary = {
     remote: "Remoto",
     education: {
       heading: "Formación",
-      degree: "Ingeniería de Sistemas",
+      degree: "Ingeniería de Sistemas e Informática",
       school: "Universidad Pontificia Bolivariana, Bucaramanga",
       period: "2023 – 2026",
     },

@@ -4,11 +4,14 @@ Página personal en Next.js, bilingüe ES/EN, pensada para acompañar aplicacion
 de trabajo. Existe porque los dos mejores proyectos —Apollo y Canchas— están en
 repos privados: la web permite mostrarlos con profundidad sin exponer el código.
 
-El concepto de diseño es un **panel de instrumento**: fondo de rejilla
-milimetrada, secciones rotuladas como canales (`CH 01`, `CH 02`…) y las cifras
-medidas presentadas como lecturas al margen del párrafo que sustentan. En el
-encabezado, una traza de osciloscopio dibuja el historial real de
-contribuciones de GitHub.
+El concepto de diseño es **brutalismo industrial**: tipografía monolítica a
+escala de cartel, compartimentación visible con rejillas de 2 px, cero radios,
+rojo de peligro como único acento y grano mecánico sobre todo. En el
+encabezado, una traza dibuja el historial real de contribuciones de GitHub.
+
+Dos sustratos del mismo lenguaje: **impresión suiza industrial** en claro
+(papel de documentación, tinta de carbón) y **telemetría táctica** en oscuro
+(CRT apagado, fósforo blanco). Mismo rojo, misma rejilla, misma tipografía.
 
 ## Stack
 
@@ -17,7 +20,7 @@ contribuciones de GitHub.
 | Framework | Next.js 16 (App Router) + React 19 |
 | Lenguaje | TypeScript en modo estricto |
 | Estilos | CSS Modules + tokens en `:root` |
-| Tipografía | Chivo · JetBrains Mono, ambas variables (`next/font`) |
+| Tipografía | Archivo · JetBrains Mono, ambas variables (`next/font`) |
 | Formulario | Formspree |
 | Datos | GitHub GraphQL API, con snapshot versionado como respaldo |
 | Pruebas | `node:test` nativo, sin dependencias |
@@ -92,11 +95,22 @@ reflowaba el encabezado y movía la página entera: 0.282 de CLS. `optional` dej
 la página quieta a cambio de que una primera visita por conexión mala vea las
 fuentes del sistema.
 
-**Chivo y JetBrains Mono variables, sin `weight`.** Esta dirección usa 300 para
-el cuerpo y 900 para los titulares; en instancias estáticas eso serían cuatro
-descargas en vez de dos. La regla no es "variable siempre": en la iteración
-anterior, con dos pesos de una serif, las instancias estáticas ganaban. Se mide
-cada caso.
+**Archivo variable en vez de Archivo Black.** El eje de peso de Archivo llega a
+900, así que un archivo cubre el cuerpo (400) y la macrotipografía (900).
+Archivo Black es una familia aparte: habría sido una descarga más antes del
+LCP a cambio de una diferencia que a 6 rem no se nota. La regla no es "variable
+siempre": en una iteración anterior, con dos pesos de una serif, ganaban las
+instancias estáticas. Se mide cada caso.
+
+**Dos rojos, no uno.** El rojo estructural (`#E61919`) va en franjas, rellenos
+y la traza. Para texto pequeño existe un rojo tipográfico más oscuro, porque el
+estructural se queda en 4.22:1 contra el papel y no llega a AA. Lo mismo con el
+enlace de salto y el badge de estado: se midieron, fallaban, y se corrigieron.
+
+**Las secciones no llevan rótulo numerado.** Antes iban rotuladas `CH 01`,
+`CH 02`. Es un tic reconocible de páginas generadas, y aquí la estructura ya la
+dan la regla de 2 px y la escala del titular. El único marco entre corchetes
+que queda es el de la tesis, donde sí enmarca algo.
 
 **Las variables de fuente van en `<html>`, no en `<body>`.** Los tokens
 `--font-display/body/mono` se declaran en `:root`; un `var()` dentro de otra

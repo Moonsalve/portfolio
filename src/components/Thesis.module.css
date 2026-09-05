@@ -1,27 +1,29 @@
 .section {
-  border-bottom: 1px solid var(--rule);
+  border-top: var(--border) solid var(--rule);
 }
 
 .inner {
-  padding-block: clamp(2.2rem, 6vw, 4rem);
+  padding-block: clamp(2rem, 5vw, 3.2rem);
   display: grid;
-  gap: 1.4rem;
+  gap: 1.1rem;
+}
+
+.label {
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  color: var(--hazard-ink);
+  margin: 0;
 }
 
 .body {
   font-size: var(--step-2);
-  font-weight: 300;
-  line-height: 1.28;
-  max-width: 30ch;
-}
-
-.body strong {
-  color: var(--sig);
-  font-weight: 700;
+  font-weight: 400;
+  line-height: 1.25;
+  max-width: 32ch;
 }
 
 @media (min-width: 62rem) {
   .body {
-    max-width: 36ch;
+    max-width: 40ch;
   }
 }

@@ -27,7 +27,6 @@ export function Projects() {
   return (
     <Section
       id="work"
-      channel="CH 02"
       title={t.sections.work.title}
       lede={t.sections.work.lede}
     >

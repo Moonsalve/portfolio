@@ -1,4 +1,4 @@
-/* Lecturas del instrumento: cada cifra medida, en su propia caja. */
+/* Lecturas del instrumento: barra roja a la izquierda, cero radios. */
 .rail {
   display: flex;
   flex-direction: column;
@@ -7,49 +7,48 @@
 }
 
 .heading {
-  margin-bottom: 0.2rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  color: var(--ink-2);
+  margin: 0 0 0.2rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
 }
 
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--border);
+  background: var(--rule);
+  border: var(--border) solid var(--rule);
 }
 
 .item {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  background: var(--raise);
-  padding: 0.75rem 0.8rem;
+  background: var(--paper);
+  padding: 0.7rem 0.8rem;
+  border-left: 4px solid var(--hazard);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-}
-
-/* Barra de canal a la izquierda de cada lectura. */
-.item::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 2px;
-  background: var(--sig);
+  min-width: 0;
 }
 
 .value {
+  font-family: var(--font-display);
   font-size: var(--step-1);
-  font-weight: 500;
-  color: var(--sig);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  text-shadow: 0 0 18px var(--glow);
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .label {
   font-size: var(--step--1);
-  color: var(--soft);
-  line-height: 1.32;
+  color: var(--ink-2);
+  line-height: 1.35;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 @media (min-width: 62rem) {
@@ -59,6 +58,6 @@
 
   .rail {
     position: sticky;
-    top: 4.5rem;
+    top: 5.5rem;
   }
 }

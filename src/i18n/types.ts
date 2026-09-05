@@ -74,6 +74,13 @@ export type Dictionary = {
     readonly snapshot: string;
     readonly empty: string;
   };
+  /** Etiquetas de la franja de parámetros bajo el nombre. */
+  readonly specs: {
+    readonly location: string;
+    readonly timezone: string;
+    readonly mode: string;
+    readonly languages: string;
+  };
   readonly thesis: {
     readonly eyebrow: string;
     readonly body: string;
