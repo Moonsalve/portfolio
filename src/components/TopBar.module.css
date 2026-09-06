@@ -27,6 +27,14 @@
   color: var(--hazard-ink);
 }
 
+/* Sin esto, el <nav> toma su ancho intrínseco como elemento flexible y el
+   scroll interno de la lista no llega a activarse: a 320 px la fila se salía
+   de la página en vez de deslizarse. */
+.nav {
+  min-width: 0;
+  max-width: 100%;
+}
+
 /* En pantallas angostas la navegación se desliza en una sola fila en vez de
    apilarse en varios renglones y comerse el primer pantallazo. */
 .navList {

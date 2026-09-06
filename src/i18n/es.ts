@@ -5,7 +5,7 @@ export const es: Dictionary = {
   meta: {
     title: "Juan Monsalve — Ingeniero en Sistemas e Informática",
     description:
-      "Ingeniero de software en Bucaramanga, Colombia. Construyo sistemas donde el modelo de lenguaje es una pieza más de la arquitectura, no el sistema entero.",
+      "Ingeniero en sistemas e informática en Bucaramanga, Colombia. Diseño, construyo y despliego sistemas de backend que llegan a producción y se sostienen ahí.",
   },
   nav: {
     work: "Proyectos",
@@ -46,16 +46,16 @@ export const es: Dictionary = {
   },
   thesis: {
     eyebrow: "Tesis",
-    body: "Construyo sistemas donde el modelo de lenguaje es una pieza más de la arquitectura, no el sistema entero. Mi criterio de ingeniería se va en decidir dónde un modelo justifica su latencia y su costo, y dónde gana un camino determinista más barato.",
+    body: "Diseño, construyo y despliego sistemas de backend que llegan a producción y se sostienen ahí: despliegue, respaldos verificados y actualizaciones incluidos. Cuando un modelo de lenguaje forma parte de uno, lo trato como un componente más de la arquitectura, no como la arquitectura entera. Mi trabajo es decidir dónde justifica su latencia y su costo, y dónde conviene un camino determinista más barato.",
   },
   sections: {
     work: {
       title: "Proyectos",
-      lede: "Tres sistemas, cada uno con la decisión que costó tomarla. Las cifras del margen están medidas, no estimadas.",
+      lede: "Tres sistemas que diseñé, construí y desplegué de punta a punta. Las cifras del margen están medidas, no estimadas.",
     },
     approach: {
       title: "Cómo trabajo",
-      lede: "Tres principios, cada uno anclado a una decisión real que cambió de rumbo después de medirla.",
+      lede: "Tres principios, cada uno anclado a una decisión concreta que cambió de rumbo después de medirla.",
     },
     experience: {
       title: "Experiencia y formación",
@@ -70,32 +70,30 @@ export const es: Dictionary = {
     apollo: {
       tagline: "Asistente de voz en español, 100 % local.",
       status: null,
-      access: "Repo público",
+      access: "Repositorio público",
       body: [
-        "Agente de voz de punta a punta corriendo enteramente en el dispositivo: Silero VAD, faster-whisper large-v3-turbo sobre CUDA, Piper TTS y un LLM local vía Ollama. Ningún audio sale de la máquina.",
-        "La decisión central fue sacar al LLM de la ruta crítica. El ruteo tiene cuatro etapas —literal, patrones, similitud por embeddings y el modelo como último recurso— y la métrica que gobierna la latencia media no es la precisión, sino el porcentaje de turnos que llegan al LLM.",
-        "El bug que más enseñó: los puntajes coseno de positivos y negativos se solapaban, así que ningún umbral absoluto los separaba. Se resolvió centrando los embeddings y agregando una clase negativa explícita, `_fallback`, en vez de seguir moviendo el número.",
-        "Control de ejecución: las herramientas viven en una allowlist con esquemas Pydantic estrictos. El modelo elige una intención y sus argumentos; nunca emite shell.",
+        "Asistente de voz en español que funciona por completo en el equipo del usuario, sin conexión y sin que un solo byte de audio salga de la máquina. Un turno completo, del micrófono a la respuesta hablada, tarda 135 milisegundos medidos sobre el equipo de destino.",
+        "Ese tiempo es consecuencia de una decisión de arquitectura: el modelo de lenguaje no está en la ruta crítica. Las órdenes se resuelven en cuatro etapas de costo creciente y solo las ambiguas llegan al modelo, de modo que lo que gobierna la latencia y el gasto no es la precisión del modelo, sino qué porcentaje de órdenes necesita llegar hasta él. Ese porcentaje se mide en cada versión.",
+        "El control de ejecución va por lista blanca: el modelo elige una intención y sus argumentos dentro de un esquema validado, y nunca genera comandos. El proyecto acumula 307 pruebas automatizadas, y el banco de intenciones se ejecuta entero antes de tocar cualquier umbral.",
       ],
     },
     canchas: {
-      tagline: "Gestión de ligas de fútbol amateur, en producción.",
+      tagline: "Gestión de ligas de fútbol amateur.",
       status: "En producción",
-      access: "2 repos privados",
+      access: "2 repositorios privados",
       body: [
-        "Empezó como el refactor de un monolito a dos repositorios tipados —una API en Node y un cliente de escritorio en Electron— y hoy es un producto desplegado que usan los planilleros de la liga. Veintidós modelos de dominio: ligas, torneos, equipos, jugadores, partidos, goles, tarjetas, deudas, multas, abonos, nóminas y asignación de canchas.",
-        "La decisión que vale contar es de producto. Todo esquema de fútbol modela el partido como local contra visitante, y así estaba construido. Pero las ligas amateur alquilan canchas neutrales: ambos equipos viajan al mismo lugar. La distinción no significaba nada y obligaba al administrador a una elección arbitraria en cada partido. Se reemplazó por `team1`/`team2`, con su migración.",
-        "El despliegue es un `docker compose` en un servidor propio: Caddy saca y renueva el certificado por su cuenta, Postgres no publica puerto —solo lo alcanza la API por la red interna— y las migraciones corren al arrancar el contenedor. Los respaldos son diarios, y hay un script que restaura el último en una base aparte y cuenta lo que quedó. Un respaldo que nunca se restauró no es un respaldo, es una carpeta.",
-        "El cliente se actualiza solo desde ese mismo servidor, y la dirección de la API va compilada dentro del instalador: el planillero instala, abre e inicia sesión sin configurar nada. Los permisos siguen al oficio en vez de a la jerarquía —el administrador maneja cuentas y nóminas; el planillero solo ve la caja del día de hoy—, y el nombre de quien cobró queda asentado aunque después se borre la cuenta.",
+        "Sistema de gestión para una liga de fútbol amateur, en producción y en uso diario por los planilleros. Cubre veintidós modelos de dominio, desde torneos y partidos hasta deudas, multas, abonos y nóminas, repartidos entre una API y un cliente de escritorio, ambos con tipado estricto. Empezó como el refactor de un monolito y hoy es un producto que se instala, se actualiza y se mantiene solo.",
+        "La decisión que más cambió el producto no fue técnica sino de dominio. Todo esquema de fútbol modela el partido como local contra visitante, y así estaba construido; pero las ligas amateur alquilan canchas neutrales y ambos equipos viajan al mismo lugar. La distinción no significaba nada y obligaba al administrador a una elección arbitraria en cada partido, así que se eliminó, con su migración de datos.",
+        "El despliegue y la operación también son míos: contenedores en un servidor propio, certificado que se renueva solo, base de datos sin puerto expuesto, respaldos diarios y un script que restaura el último en una base aparte para comprobar que sirven. El cliente se actualiza desde ese mismo servidor sin que el usuario configure nada, y los permisos siguen al oficio: el administrador maneja cuentas y nóminas, el planillero solo ve la caja del día.",
       ],
     },
     leadTriage: {
-      tagline: "Clasificación de leads con un modelo comercial.",
+      tagline: "Clasificación automática de formularios de contacto.",
       status: "En construcción",
-      access: "Repo privado por ahora",
+      access: "Repositorio privado por ahora",
       body: [
-        "Webhook que recibe formularios, descarta lo obvio con reglas baratas y clasifica solo lo dudoso con la API de Anthropic, usando salida estructurada validada contra un esquema.",
-        "El punto del proyecto es la contabilidad: cada lead queda registrado con sus tokens y su costo, y un endpoint de estadísticas reporta qué porcentaje llegó al modelo. Es el mismo pre-filtro barato de Apollo, aplicado a un servicio que sí paga por token.",
+        "Servicio que recibe formularios de contacto, descarta con reglas baratas lo que no necesita un modelo y clasifica el resto con la API de Anthropic, validando la respuesta contra un esquema antes de guardarla.",
+        "El objetivo es el control de costos: cada consulta queda registrada con sus tokens y su gasto, y un endpoint reporta qué porcentaje de los formularios llegó a necesitar el modelo. Es el mismo criterio de Apollo aplicado a un servicio que cobra por uso.",
       ],
     },
   },
@@ -106,7 +104,7 @@ export const es: Dictionary = {
     "apollo.tests": "pruebas automatizadas en verde",
     "canchas.shipped": "en producción, con auto-actualización desde el servidor propio",
     "canchas.models": "modelos de dominio en Postgres",
-    "canchas.commits": "commits en dos repos tipados, entre abril y septiembre",
+    "canchas.commits": "commits en dos repositorios tipados, entre abril y septiembre",
     "canchas.containers": "contenedores: Caddy, la API y Postgres sin puerto público",
     "leadTriage.wip": "en construcción, especificado por completo",
     "leadTriage.cost": "tokens y costo registrados por lead",
@@ -117,11 +115,11 @@ export const es: Dictionary = {
   principles: {
     measure: {
       title: "Medir antes de arquitecturar",
-      body: "Descarté Moonshine para el reconocimiento de voz tras comprobar que no existe modelo en español. Descarté el umbral absoluto de coseno tras medir que positivos y negativos se solapan. Ninguna de las dos se veía venir en el papel.",
+      body: "Descarté Moonshine para el reconocimiento de voz tras comprobar que no existe modelo en español. Descarté el umbral fijo de similitud tras medir que los casos válidos y los inválidos se solapaban. Ninguna de las dos decisiones se veía venir sobre el papel.",
     },
     contract: {
       title: "Ensanchar el contrato en vez de apretar el prompt",
-      body: "«Sube el volumen al 50» se clasificaba como subir un paso en vez de fijar el nivel: los encoders tratan las cifras casi como ruido. Agregar ejemplos funcionaba y se rompía con la siguiente frase. La solución fue hacer que equivocarse dejara de importar: ambas intenciones aceptan el nivel, y la skill lo prefiere sobre el paso.",
+      body: "«Sube el volumen al 50» se clasificaba como subir un paso en vez de fijar el nivel, porque los modelos de similitud tratan las cifras casi como ruido. Agregar ejemplos funcionaba y se rompía con la siguiente frase. La solución fue hacer que equivocarse dejara de importar: ambas intenciones aceptan el nivel, y la acción da prioridad al nivel sobre el paso.",
     },
     loud: {
       title: "Las fallas deben ser ruidosas",
@@ -132,7 +130,7 @@ export const es: Dictionary = {
     roles: {
       teamManager: {
         period: "Nov 2025 – Ago 2026",
-        role: "Team Manager — Operaciones y análisis de datos",
+        role: "Team Manager, operaciones y análisis de datos",
         company: "WW Funcrafters JWA LLC",
       },
       sales: {
@@ -167,7 +165,7 @@ export const es: Dictionary = {
     },
     languages: {
       heading: "Idiomas",
-      items: ["Español — nativo", "Inglés — C1+"],
+      items: ["Español: nativo", "Inglés: C1+"],
     },
   },
   contact: {

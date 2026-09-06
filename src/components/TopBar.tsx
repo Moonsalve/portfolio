@@ -31,7 +31,7 @@ export function TopBar() {
           JM <span className={styles.slash}>{"/"}</span> REV 2026.09
         </span>
 
-        <nav aria-label={t.nav.work}>
+        <nav className={styles.nav} aria-label={t.nav.work}>
           <ul className={styles.navList}>
             {nav.map((item) => (
               <li key={item.href}>

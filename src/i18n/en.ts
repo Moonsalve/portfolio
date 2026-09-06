@@ -5,7 +5,7 @@ export const en: Dictionary = {
   meta: {
     title: "Juan Monsalve — Systems and Computing Engineer",
     description:
-      "Software engineer in Bucaramanga, Colombia. I build systems where the language model is one component, not the whole architecture.",
+      "Systems and computing engineer in Bucaramanga, Colombia. I design, build, and deploy backend systems that reach production and stay there.",
   },
   nav: {
     work: "Work",
@@ -46,16 +46,16 @@ export const en: Dictionary = {
   },
   thesis: {
     eyebrow: "Thesis",
-    body: "I build systems where the language model is one component, not the whole architecture. Most of my engineering judgment goes into deciding where a model earns its latency and cost — and where a cheaper deterministic path wins.",
+    body: "I design, build, and deploy backend systems that reach production and stay there: deployment, verified backups, and updates included. When a language model is part of one, I treat it as a component of the architecture rather than the architecture itself. My job is deciding where it earns its latency and cost, and where a cheaper deterministic path is the better answer.",
   },
   sections: {
     work: {
       title: "Work",
-      lede: "Three systems, each with the decision that was hard to make. The figures in the margin are measured, not estimated.",
+      lede: "Three systems I designed, built, and deployed end to end. The figures in the margin are measured, not estimated.",
     },
     approach: {
       title: "How I work",
-      lede: "Three principles, each anchored to a real decision that changed course once it was measured.",
+      lede: "Three principles, each anchored to a concrete decision that changed course once it was measured.",
     },
     experience: {
       title: "Experience and education",
@@ -70,32 +70,30 @@ export const en: Dictionary = {
     apollo: {
       tagline: "Spanish voice assistant, fully local.",
       status: null,
-      access: "Public repo",
+      access: "Public repository",
       body: [
-        "An end-to-end voice agent running entirely on device: Silero VAD, faster-whisper large-v3-turbo on CUDA, Piper TTS, and a local LLM through Ollama. No audio ever leaves the machine.",
-        "The central decision was taking the LLM off the critical path. Routing has four stages — literal, patterns, embedding similarity, and the model as a last resort — and the metric that governs average latency isn't accuracy, it's the share of turns that reach the LLM at all.",
-        "The bug that taught the most: cosine scores for positives and negatives overlapped, so no absolute threshold could separate them. The fix was centering the embeddings and adding an explicit negative class, `_fallback`, instead of going back to tune the number again.",
-        "Execution control: tools live behind an allowlist with strict Pydantic schemas. The model picks an intent and its arguments; it never emits shell.",
+        "A Spanish-language voice assistant that runs entirely on the user's machine, offline, without a single byte of audio leaving the device. A full turn, from microphone to spoken answer, takes 135 milliseconds measured on the target machine.",
+        "That number is the result of an architectural decision: the language model is not on the critical path. Commands resolve through four stages of increasing cost, and only the ambiguous ones reach the model, so what governs latency and spend is not the model's accuracy but the share of commands that need it at all. That share is measured on every release.",
+        "Execution is allowlisted: the model picks an intent and its arguments inside a validated schema, and never generates commands. The project carries 307 automated tests, and the full intent benchmark runs before any threshold is touched.",
       ],
     },
     canchas: {
-      tagline: "Amateur football league management, in production.",
+      tagline: "Amateur football league management.",
       status: "In production",
-      access: "2 private repos",
+      access: "2 private repositories",
       body: [
-        "It started as a refactor from one monolith into two typed repositories — a Node API and an Electron desktop client — and today it is a deployed product the league's scorekeepers use. Twenty-two domain models: leagues, tournaments, teams, players, matches, goals, cards, debts, fines, credits, payroll, and field assignment.",
-        "The decision worth telling is a product one. Every football schema models a match as home versus away, and that's how this was built. But amateur leagues rent neutral fields — both teams travel to the same place. The distinction meant nothing and forced the administrator into an arbitrary choice on every match. It was replaced with `team1`/`team2`, migration included.",
-        "Deployment is a `docker compose` on a self-hosted server: Caddy issues and renews the certificate on its own, Postgres publishes no port — only the API reaches it over the internal network — and migrations run as the container boots. Backups are daily, and a script restores the latest one into a separate database and counts what survived. A backup that has never been restored isn't a backup, it's a folder.",
-        "The client updates itself from that same server, and the API address is compiled into the installer: the scorekeeper installs it, opens it, and signs in without configuring anything. Permissions follow the job rather than the hierarchy — the administrator manages accounts and payroll; the scorekeeper only sees today's cash box — and whoever collected a payment stays on the record even if the account is later deleted.",
+        "A management system for an amateur football league, in production and used daily by its scorekeepers. It covers twenty-two domain models, from tournaments and matches through debts, fines, credits, and payroll, split across an API and a desktop client, both strictly typed. It began as a monolith refactor and is now a product that installs, updates, and maintains itself.",
+        "The decision that changed the product most was about the domain, not the code. Every football schema models a match as home versus away, and that is how this was built; but amateur leagues rent neutral fields and both teams travel to the same place. The distinction meant nothing and forced the administrator into an arbitrary choice on every match, so it was removed, data migration included.",
+        "Deployment and operations are mine as well: containers on a self-hosted server, a certificate that renews itself, a database with no exposed port, daily backups, and a script that restores the latest one into a separate database to prove the backups work. The client updates from that same server with no configuration from the user, and permissions follow the job: the administrator handles accounts and payroll, the scorekeeper only sees the day's cash box.",
       ],
     },
     leadTriage: {
-      tagline: "Lead triage with a commercial model.",
+      tagline: "Automated triage of inbound contact forms.",
       status: "In progress",
-      access: "Private repo for now",
+      access: "Private repository for now",
       body: [
-        "A webhook that receives form submissions, drops the obvious ones with cheap rules, and classifies only the ambiguous ones through the Anthropic API, using structured output validated against a schema.",
-        "The point of the project is the accounting: every lead is stored with its token count and cost, and a stats endpoint reports what share of them reached the model at all. It's the same cheap pre-filter as Apollo, applied to a service that actually bills per token.",
+        "A service that receives contact forms, drops whatever does not need a model using cheap rules, and classifies the rest through the Anthropic API, validating the response against a schema before storing it.",
+        "The goal is cost control: every call is recorded with its token count and spend, and an endpoint reports what share of submissions needed the model at all. It is the same judgment as Apollo, applied to a service that bills per use.",
       ],
     },
   },
@@ -106,7 +104,7 @@ export const en: Dictionary = {
     "apollo.tests": "automated tests passing",
     "canchas.shipped": "in production, self-updating from its own server",
     "canchas.models": "domain models in Postgres",
-    "canchas.commits": "commits across two typed repos, April to September",
+    "canchas.commits": "commits across two typed repositories, April to September",
     "canchas.containers": "containers: Caddy, the API, and Postgres with no public port",
     "leadTriage.wip": "under construction, fully specified",
     "leadTriage.cost": "tokens and cost recorded per lead",
@@ -117,11 +115,11 @@ export const en: Dictionary = {
   principles: {
     measure: {
       title: "Measure before architecting",
-      body: "I dropped Moonshine for speech recognition after confirming no Spanish model exists. I dropped the absolute cosine threshold after measuring that positives and negatives overlap. Neither was visible on paper.",
+      body: "I dropped Moonshine for speech recognition after confirming no Spanish model exists. I dropped the fixed similarity threshold after measuring that valid and invalid cases overlapped. Neither decision was visible on paper.",
     },
     contract: {
       title: "Widen the contract instead of tightening the prompt",
-      body: "\"Set the volume to 50\" kept classifying as step-up rather than set-level: encoders treat numbers as close to noise. Adding examples worked, then broke on the next phrasing. The fix was making the mistake stop mattering: both intents accept a level, and the skill prefers it over the step.",
+      body: "\"Set the volume to 50\" kept classifying as step-up rather than set-level, because similarity models treat numbers as close to noise. Adding examples worked, then broke on the next phrasing. The fix was making the mistake stop mattering: both intents accept a level, and the action prefers the level over the step.",
     },
     loud: {
       title: "Failures should be loud",
@@ -132,7 +130,7 @@ export const en: Dictionary = {
     roles: {
       teamManager: {
         period: "Nov 2025 – Aug 2026",
-        role: "Team Manager — Operations and data analysis",
+        role: "Team Manager, operations and data analysis",
         company: "WW Funcrafters JWA LLC",
       },
       sales: {
@@ -167,7 +165,7 @@ export const en: Dictionary = {
     },
     languages: {
       heading: "Languages",
-      items: ["Spanish — native", "English — C1+"],
+      items: ["Spanish: native", "English: C1+"],
     },
   },
   contact: {
