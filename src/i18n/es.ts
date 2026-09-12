@@ -5,7 +5,7 @@ export const es: Dictionary = {
   meta: {
     title: "Juan Monsalve — Ingeniero en Sistemas e Informática",
     description:
-      "Ingeniero en sistemas e informática en Bucaramanga, Colombia. Diseño, construyo y despliego sistemas de backend que llegan a producción y se sostienen ahí.",
+      "Ingeniero en sistemas e informática. Construyo y despliego sistemas de backend que llegan a producción: un asistente de voz que responde en 135 ms sin conexión y un producto que una liga entera usa a diario.",
   },
   nav: {
     work: "Proyectos",
@@ -51,11 +51,11 @@ export const es: Dictionary = {
   sections: {
     work: {
       title: "Proyectos",
-      lede: "Tres sistemas que diseñé, construí y desplegué de punta a punta. Las cifras del margen están medidas, no estimadas.",
+      lede: "Tres sistemas que diseñé, construí y desplegué yo. Cada cifra del margen está medida sobre el sistema real, no estimada.",
     },
     approach: {
       title: "Cómo trabajo",
-      lede: "Tres principios, cada uno anclado a una decisión concreta que cambió de rumbo después de medirla.",
+      lede: "Tres decisiones que tomé mal la primera vez y corregí al medirlas. Sirven mejor que cualquier declaración de principios.",
     },
     experience: {
       title: "Experiencia y formación",
@@ -63,32 +63,32 @@ export const es: Dictionary = {
     },
     contact: {
       title: "Contacto",
-      lede: "Abierto a roles remotos de backend, plataformas o sistemas con IA. Respondo en menos de 24 horas.",
+      lede: "Busco un rol remoto de backend, plataformas o sistemas con IA. Respondo en menos de 24 horas.",
     },
   },
   projects: {
     apollo: {
-      tagline: "Asistente de voz en español, 100 % local.",
+      tagline: "Asistente de voz en español. 135 ms, sin conexión.",
       status: null,
       access: "Repositorio público",
       body: [
-        "Asistente de voz en español que funciona por completo en el equipo del usuario, sin conexión y sin que un solo byte de audio salga de la máquina. Un turno completo, del micrófono a la respuesta hablada, tarda 135 milisegundos medidos sobre el equipo de destino.",
+        "Un turno completo, del micrófono a la respuesta hablada, tarda 135 milisegundos medidos sobre el equipo de destino. Todo ocurre ahí mismo: sin conexión, sin servicios de terceros y sin que un solo byte de audio salga de la máquina.",
         "Ese tiempo es consecuencia de una decisión de arquitectura: el modelo de lenguaje no está en la ruta crítica. Las órdenes se resuelven en cuatro etapas de costo creciente y solo las ambiguas llegan al modelo, de modo que lo que gobierna la latencia y el gasto no es la precisión del modelo, sino qué porcentaje de órdenes necesita llegar hasta él. Ese porcentaje se mide en cada versión.",
         "El control de ejecución va por lista blanca: el modelo elige una intención y sus argumentos dentro de un esquema validado, y nunca genera comandos. El proyecto acumula 307 pruebas automatizadas, y el banco de intenciones se ejecuta entero antes de tocar cualquier umbral.",
       ],
     },
     canchas: {
-      tagline: "Gestión de ligas de fútbol amateur.",
+      tagline: "Una liga entera corriendo sobre esto, todos los días.",
       status: "En producción",
       access: "2 repositorios privados",
       body: [
-        "Sistema de gestión para una liga de fútbol amateur, en producción y en uso diario por los planilleros. Cubre veintidós modelos de dominio, desde torneos y partidos hasta deudas, multas, abonos y nóminas, repartidos entre una API y un cliente de escritorio, ambos con tipado estricto. Empezó como el refactor de un monolito y hoy es un producto que se instala, se actualiza y se mantiene solo.",
+        "Una liga de fútbol amateur lleva aquí sus torneos, sus cobros y sus nóminas, todos los días y en producción. Veintidós modelos de dominio repartidos entre una API y un cliente de escritorio, ambos con tipado estricto. Empezó como el refactor de un monolito; hoy es un producto que se instala, se actualiza y se mantiene solo.",
         "La decisión que más cambió el producto no fue técnica sino de dominio. Todo esquema de fútbol modela el partido como local contra visitante, y así estaba construido; pero las ligas amateur alquilan canchas neutrales y ambos equipos viajan al mismo lugar. La distinción no significaba nada y obligaba al administrador a una elección arbitraria en cada partido, así que se eliminó, con su migración de datos.",
         "El despliegue y la operación también son míos: contenedores en un servidor propio, certificado que se renueva solo, base de datos sin puerto expuesto, respaldos diarios y un script que restaura el último en una base aparte para comprobar que sirven. El cliente se actualiza desde ese mismo servidor sin que el usuario configure nada, y los permisos siguen al oficio: el administrador maneja cuentas y nóminas, el planillero solo ve la caja del día.",
       ],
     },
     leadTriage: {
-      tagline: "Clasificación automática de formularios de contacto.",
+      tagline: "Clasifica formularios y mide lo que cuesta cada consulta.",
       status: "En construcción",
       access: "Repositorio privado por ahora",
       body: [
