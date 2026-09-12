@@ -1,0 +1,63 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # La traza del encabezado se calcula al construir, así que sin una
+  # reconstrucción periódica se congelaría. Una vez al día basta: el calendario
+  # de contribuciones de GitHub no cambia más seguido que eso.
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez. No se cancela el que esté en curso: interrumpir una
+# publicación a medias deja el sitio en un estado peor que esperar.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tipos, lint y pruebas
+        run: |
+          npx tsc --noEmit
+          npx eslint src
+          npm test
+
+      - name: Construir el sitio estático
+        env:
+          # Si falla o falta, `getActivity()` cae al snapshot versionado y lo
+          # rotula con su fecha. El sitio nunca se queda sin gráfica.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_PUBLIC_FORMSPREE_ID: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ID }}
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
