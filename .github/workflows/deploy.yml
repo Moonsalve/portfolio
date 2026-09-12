@@ -32,7 +32,12 @@ jobs:
           node-version: 22
           cache: npm
 
-      - run: npm ci
+      # `npm install` y no `npm ci`: el lock se genera en macOS y no puede
+      # contener los binarios opcionales por plataforma que npm resuelve en
+      # Linux (sharp, el resolutor de eslint). `npm ci` exige un lock que los
+      # cubra todos y falla; `npm install` respeta las versiones fijadas y
+      # baja además el binario que le toca al runner.
+      - run: npm install --no-audit --no-fund
 
       - name: Tipos, lint y pruebas
         run: |
