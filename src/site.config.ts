@@ -1,3 +1,5 @@
+import { withBasePath } from "@/lib/paths";
+
 /**
  * Datos no traducibles del sitio. Todo lo que cambia entre idiomas vive en
  * `src/i18n`; aquí solo van identidad, enlaces y banderas de configuración.
@@ -34,11 +36,11 @@ export const site = {
    * Obra de un tercero, incluida a petición del autor.
    */
   sleeve: {
-    src: "/sleeve.jpg",
+    src: withBasePath("/sleeve.jpg"),
     width: 320,
     height: 320,
   } as { src: string; width: number; height: number } | null,
-  cv: "/cv-juan-monsalve.pdf",
+  cv: withBasePath("/cv-juan-monsalve.pdf"),
   /**
    * ID del formulario de Formspree (`https://formspree.io/f/<id>`), inyectado
    * en build por `NEXT_PUBLIC_FORMSPREE_ID`. Sin él, el formulario se degrada
