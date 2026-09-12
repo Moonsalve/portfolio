@@ -1,15 +1,18 @@
 import { defaultLocale, locales, type Locale } from "./types.ts";
 
 /**
- * `Accept-Language: en-US,en;q=0.9,es;q=0.8` → el primer idioma soportado por
- * calidad descendente.
+ * Elige el idioma soportado que el visitante prefiere.
  *
- * Vive aparte de `server.ts` (que importa `next/headers` y `server-only`) para
- * ser lógica pura: sin esa separación no se puede probar fuera de una petición.
+ * Acepta tanto una cabecera `Accept-Language` ("en-US,en;q=0.9,es;q=0.8") como
+ * la lista de `navigator.languages`, porque son el mismo dato en dos formatos.
+ * Es lógica pura y sin dependencias del entorno: por eso se puede probar sin
+ * levantar un navegador ni una petición.
+ *
  * No se usa `Intl.LocaleMatcher` porque no existe en runtime; con dos idiomas,
  * esto es todo lo que hace falta.
  */
-export function parseAcceptLanguage(header: string | null | undefined): Locale {
+export function preferredLocale(input: string | readonly string[] | null | undefined): Locale {
+  const header = Array.isArray(input) ? input.join(",") : (input as string | null | undefined);
   if (!header) return defaultLocale;
 
   const ranked = header
