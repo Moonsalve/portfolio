@@ -6,7 +6,12 @@
 export const site = {
   name: "Juan Monsalve",
   /** Dominio definitivo. Actualizar tras comprar el dominio (ver README). */
-  url: "https://jmonsalve.dev",
+  /**
+   * Origen público. El valor por defecto es el dominio definitivo; la variable
+   * permite apuntar a la URL temporal de GitHub Pages sin tocar código, para
+   * que canonical, sitemap y Open Graph no mientan mientras tanto.
+   */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://jmonsalve.dev",
   email: "JuanMonsalve.23@hotmail.com",
   githubUser: "Moonsalve",
   github: "https://github.com/Moonsalve",

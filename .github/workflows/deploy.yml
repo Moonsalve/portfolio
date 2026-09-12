@@ -51,6 +51,13 @@ jobs:
           # rotula con su fecha. El sitio nunca se queda sin gráfica.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEXT_PUBLIC_FORMSPREE_ID: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ID }}
+          # ---- Temporal, hasta que jmonsalve.dev apunte aquí ----------------
+          # Mientras el sitio vive en moonsalve.github.io/portfolio/ necesita
+          # prefijo de ruta. Al configurar el dominio propio, borrar estas dos
+          # líneas: el sitio pasa a colgar de la raíz.
+          NEXT_PUBLIC_BASE_PATH: /portfolio
+          NEXT_PUBLIC_SITE_URL: https://moonsalve.github.io/portfolio
+          # -------------------------------------------------------------------
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3

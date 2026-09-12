@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
    * y evita depender de una comodidad concreta del proveedor.
    */
   trailingSlash: true,
+
+  /**
+   * Prefijo de ruta, solo para el sitio de proyecto de GitHub Pages, que vive
+   * bajo `/portfolio/`. Con dominio propio el sitio cuelga de la raíz y esta
+   * variable no se define, así que queda vacío.
+   */
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || undefined,
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || undefined,
 };
 
 export default nextConfig;
