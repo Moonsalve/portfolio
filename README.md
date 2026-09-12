@@ -185,6 +185,21 @@ tests/          pruebas unitarias
 
 ## Despliegue
 
+Publicado en **GitHub Pages** como sitio estático. Cada push a `main` construye
+y despliega; además hay una reconstrucción diaria, porque la traza de actividad
+se calcula al construir y si no se congelaría.
+
+El sitio se exporta con `output: "export"`, así que **no hay Node en
+producción**. Eso obligó a mover el idioma de la cabecera a la ruta: `/` en
+español y `/en/` en inglés, cada una prerenderizada. Detalles que rompen Pages
+si se olvidan, ya resueltos: `.nojekyll`, `trailingSlash` y `CNAME`.
+
+Mientras el dominio propio no apunte aquí, el sitio vive bajo
+`/portfolio/` y necesita prefijo de ruta: las dos variables que lo activan
+están marcadas como temporales en `.github/workflows/deploy.yml`.
+
+### Despliegue anterior (referencia)
+
 1. Subir el repo a `github.com/Moonsalve/portfolio`.
 2. Importarlo en Vercel; detecta Next.js sin configuración.
 3. Definir `NEXT_PUBLIC_FORMSPREE_ID` en las variables del proyecto.
