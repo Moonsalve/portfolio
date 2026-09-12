@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import { ImageResponse } from "next/og";
 import { copy, defaultLocale } from "@/i18n";
 import { site } from "@/site.config";

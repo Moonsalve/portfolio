@@ -4,9 +4,10 @@
   border: 1.5px solid var(--rule);
 }
 
+/* Ahora son enlaces reales, uno por idioma: funcionan sin JavaScript y le dan
+   al buscador dos URLs que indexar. */
 .option {
-  appearance: none;
-  border: 0;
+  text-decoration: none;
   border-right: 1.5px solid var(--rule);
   background: transparent;
   color: var(--ink-2);
@@ -30,4 +31,10 @@
 .option[data-active="true"] {
   background: var(--hazard-ink);
   color: var(--on-hazard);
+}
+
+/* El idioma que el navegador del visitante prefiere, señalado sin redirigirlo. */
+.option[data-suggested="true"] {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--hazard);
 }
