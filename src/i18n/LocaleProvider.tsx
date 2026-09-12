@@ -1,56 +1,29 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useSyncExternalStore,
-  type ReactNode,
-} from "react";
-import {
-  getSnapshot,
-  primeLocale,
-  setLocale as writeLocale,
-  subscribe,
-} from "./localeStore";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { copy, type Dictionary, type Locale } from "./index";
 
 type LocaleContextValue = {
   locale: Locale;
   t: Dictionary;
-  setLocale: (next: Locale) => void;
 };
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
+/**
+ * El idioma ya no se negocia ni se guarda: lo determina la ruta, y el servidor
+ * prerenderiza una página por idioma. Esto es lo que permite exportar el sitio
+ * como HTML estático, y elimina de raíz el desajuste que antes había entre lo
+ * que el servidor rendía y lo que el cliente corregía tras hidratar.
+ */
 export function LocaleProvider({
-  initialLocale,
+  locale,
   children,
 }: {
-  /** Idioma que el servidor ya resolvió y con el que renderizó el HTML. */
-  initialLocale: Locale;
+  locale: Locale;
   children: ReactNode;
 }) {
-  // Solo en el navegador: en el servidor, mutar el módulo filtra entre peticiones.
-  if (typeof window !== "undefined") {
-    primeLocale(initialLocale);
-  }
-
-  const getServerSnapshot = useCallback(() => initialLocale, [initialLocale]);
-  const locale = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-
-  // Sincroniza el DOM con el estado de React: para esto sí existen los efectos.
-  useEffect(() => {
-    document.documentElement.lang = locale;
-  }, [locale]);
-
-  const value = useMemo<LocaleContextValue>(
-    () => ({ locale, t: copy[locale], setLocale: writeLocale }),
-    [locale],
-  );
-
+  const value = useMemo<LocaleContextValue>(() => ({ locale, t: copy[locale] }), [locale]);
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }
 

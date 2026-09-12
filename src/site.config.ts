@@ -6,7 +6,7 @@
 export const site = {
   name: "Juan Monsalve",
   /** Dominio definitivo. Actualizar tras comprar el dominio (ver README). */
-  url: "https://juanmonsalve.dev",
+  url: "https://jmonsalve.dev",
   email: "JuanMonsalve.23@hotmail.com",
   githubUser: "Moonsalve",
   github: "https://github.com/Moonsalve",
