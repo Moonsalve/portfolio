@@ -113,6 +113,13 @@ export type Dictionary = {
     readonly certifications: {
       readonly heading: string;
       readonly items: readonly string[];
+      /** Credenciales con página de verificación, frente a los cursos de
+       *  `items`, que no la tienen. La distinción es el contenido. */
+      readonly verified: {
+        readonly heading: string;
+        readonly issuer: string;
+        readonly verifyLabel: string;
+      };
     };
     readonly languages: {
       readonly heading: string;

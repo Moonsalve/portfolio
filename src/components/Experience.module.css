@@ -100,6 +100,44 @@
   text-transform: uppercase;
 }
 
+/* Rejilla de 2×2 y no una fila de cuatro. Estas credenciales no son logotipos
+   redondos: son certificados rectangulares con texto dentro, y a 58 px de lado
+   tres de las cuatro se leían como un rectángulo blanco. En dos columnas el
+   riel da unos 112 px por celda, que es donde el nombre del curso empieza a
+   distinguirse. */
+.badges {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin: 0.1rem 0 0.35rem;
+}
+
+.badge {
+  display: block;
+  border: 2px solid var(--hairline);
+  padding: 0.25rem;
+  line-height: 0;
+  transition: border-color 120ms linear, background-color 120ms linear;
+}
+
+.badge:hover,
+.badge:focus-visible {
+  border-color: var(--hazard);
+  background: color-mix(in srgb, var(--hazard) 8%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    transition: none;
+  }
+}
+
+.badgeImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 @media (min-width: 62rem) {
   .layout {
     grid-template-columns: minmax(0, 1fr) var(--readout-width);

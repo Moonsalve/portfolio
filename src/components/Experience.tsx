@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { roleIds } from "@/content/projects";
+import { CREDENTIAL_SOURCE_SIZE, credentials } from "@/content/credentials";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { Reveal } from "./Reveal";
 import { Section } from "./Section";
@@ -39,6 +41,36 @@ export function Experience() {
             <p className={styles.degree}>{education.degree}</p>
             <p className={styles.detail}>{education.school}</p>
             <p className={`mono ${styles.detail}`}>{education.period}</p>
+          </div>
+
+          <div className={styles.block}>
+            <p className="eyebrow">{certifications.verified.heading}</p>
+            <ul className={styles.badges}>
+              {credentials.map((credential) => (
+                <li key={credential.id}>
+                  <a
+                    className={styles.badge}
+                    href={credential.verify}
+                    target="_blank"
+                    rel="noreferrer"
+                    // El nombre no cabe bajo la insignia sin romper la
+                    // retícula, así que viaja en el enlace: quien navega con
+                    // teclado o lector de pantalla oye qué credencial es y
+                    // que se abre la verificación.
+                    aria-label={`${credential.name} — ${certifications.verified.verifyLabel}`}
+                  >
+                    <Image
+                      src={credential.image}
+                      alt=""
+                      width={CREDENTIAL_SOURCE_SIZE}
+                      height={CREDENTIAL_SOURCE_SIZE}
+                      className={styles.badgeImage}
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className={`mono ${styles.detail}`}>{certifications.verified.issuer}</p>
           </div>
 
           <div className={styles.block}>
