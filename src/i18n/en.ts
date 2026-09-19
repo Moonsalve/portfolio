@@ -15,7 +15,7 @@ export const en: Dictionary = {
     skipToContent: "Skip to content",
   },
   header: {
-    role: "Systems and Computing Engineer",
+    role: "Systems & Computing Engineer · Software Engineer",
     availability: "Available for remote work",
     availabilityShort: "Available",
     location: "Bucaramanga, Colombia · GMT−5",
