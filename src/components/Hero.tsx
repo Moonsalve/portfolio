@@ -19,7 +19,7 @@ function Monogram({ label }: { label: string }) {
 }
 
 export function Hero({ activity }: { activity: Activity }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   return (
     <section className={`page ${styles.hero}`} aria-label={site.name}>
@@ -108,7 +108,7 @@ export function Hero({ activity }: { activity: Activity }) {
           </li>
         ) : null}
         <li>
-          <a className={`mono ${styles.action}`} href={site.cv} download>
+          <a className={`mono ${styles.action}`} href={site.cv[locale]} download>
             {t.header.actions.cv}
           </a>
         </li>

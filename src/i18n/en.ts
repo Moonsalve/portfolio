@@ -172,7 +172,8 @@ export const en: Dictionary = {
     directHeading: "Direct",
     emailLabel: "Email",
     githubLabel: "GitHub",
-    cvLabel: "Download résumé (PDF)",
+    cvEsLabel: "Résumé in Spanish (PDF)",
+    cvEnLabel: "Résumé in English (PDF)",
     form: {
       heading: "Or write here",
       name: "Name",

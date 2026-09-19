@@ -123,7 +123,8 @@ export type Dictionary = {
     readonly directHeading: string;
     readonly emailLabel: string;
     readonly githubLabel: string;
-    readonly cvLabel: string;
+    readonly cvEsLabel: string;
+    readonly cvEnLabel: string;
     readonly form: {
       readonly heading: string;
       readonly name: string;

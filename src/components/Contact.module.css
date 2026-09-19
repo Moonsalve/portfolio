@@ -39,6 +39,10 @@
   word-break: break-word;
 }
 
+.links li .value + .value {
+  margin-top: 0.3rem;
+}
+
 .formWrap {
   min-width: 0;
 }

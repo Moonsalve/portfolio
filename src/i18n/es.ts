@@ -172,7 +172,8 @@ export const es: Dictionary = {
     directHeading: "Directo",
     emailLabel: "Correo",
     githubLabel: "GitHub",
-    cvLabel: "Descargar CV (PDF)",
+    cvEsLabel: "CV en español (PDF)",
+    cvEnLabel: "CV en inglés (PDF)",
     form: {
       heading: "O escribe aquí",
       name: "Nombre",

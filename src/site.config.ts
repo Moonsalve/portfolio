@@ -40,7 +40,11 @@ export const site = {
     width: 320,
     height: 320,
   } as { src: string; width: number; height: number } | null,
-  cv: withBasePath("/cv-juan-monsalve.pdf"),
+  /** Un PDF por idioma; la página enlaza el que corresponde y ofrece el otro. */
+  cv: {
+    es: withBasePath("/cv-juan-monsalve-es.pdf"),
+    en: withBasePath("/cv-juan-monsalve-en.pdf"),
+  } as Record<"es" | "en", string>,
   /**
    * ID del formulario de Formspree (`https://formspree.io/f/<id>`), inyectado
    * en build por `NEXT_PUBLIC_FORMSPREE_ID`. Sin él, el formulario se degrada

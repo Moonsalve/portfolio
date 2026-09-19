@@ -28,10 +28,15 @@ export function Contact() {
                 github.com/Moonsalve
               </a>
             </li>
+            {/* Los dos idiomas desde cualquiera de las dos páginas: quien llega
+                por la versión en inglés puede querer el CV en español, y al revés. */}
             <li>
               <span className={`mono ${styles.key}`}>CV</span>
-              <a className={styles.value} href={site.cv} download>
-                {t.contact.cvLabel}
+              <a className={styles.value} href={site.cv.es} hrefLang="es" download>
+                {t.contact.cvEsLabel}
+              </a>
+              <a className={styles.value} href={site.cv.en} hrefLang="en" download>
+                {t.contact.cvEnLabel}
               </a>
             </li>
           </ul>
