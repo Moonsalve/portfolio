@@ -152,7 +152,14 @@ export const es: Dictionary = {
       period: "2023 – 2026",
     },
     certifications: {
-      heading: "Certificaciones",
+      // Antes era "Certificaciones". Con las credenciales verificables al
+      // lado, llamar igual a las dos cosas borraba la diferencia.
+      heading: "Cursos y formación",
+      verified: {
+        heading: "Credenciales verificables",
+        issuer: "Google Cloud · octubre de 2024",
+        verifyLabel: "Verificar en Credly",
+      },
       items: [
         "AWS Cloud Practitioner Fundamentals",
         "Fundamentos de Linux",
