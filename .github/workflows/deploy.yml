@@ -1,7 +1,11 @@
 name: Publicar en GitHub Pages
 
 on:
+  # `dev` y los PR hacia `main` solo verifican. Publicar es exclusivo de `main`,
+  # y a `main` no se llega sino por un PR verde: esa es toda la regla.
   push:
+    branches: [main, dev]
+  pull_request:
     branches: [main]
   # La traza del encabezado se calcula al construir, así que sin una
   # reconstrucción periódica se congelaría. Una vez al día basta: el calendario
@@ -10,19 +14,26 @@ on:
     - cron: "17 6 * * *"
   workflow_dispatch:
 
+# Solo lectura por defecto. El permiso de escribir en Pages vive en el job que
+# publica, no en todo el workflow: verificar un PR —código que todavía no ha
+# pasado por ninguna puerta— no tiene por qué poder tocar el sitio en vivo.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# Un despliegue a la vez. No se cancela el que esté en curso: interrumpir una
-# publicación a medias deja el sitio en un estado peor que esperar.
+# Una verificación viva por rama. En un PR se cancela la anterior: empujar tres
+# correcciones seguidas no debería ocupar tres runners para que dos respuestas
+# lleguen ya obsoletas. En `main` no se cancela, porque ese run termina en un
+# despliegue y abortarlo a medias es peor que esperarlo.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: verify-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build:
+  verify:
+    # OJO: este nombre es el contexto exacto que la protección de `main` exige
+    # para dejar mergear. Renombrarlo sin actualizar la regla deja los PR
+    # bloqueados para siempre esperando un check que ya no reporta nadie.
+    name: Verificar y construir
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -45,6 +56,10 @@ jobs:
           npx eslint src
           npm test
 
+      # El build corre también en los PR aunque no se publique: `tsc` no ve los
+      # errores que solo aparecen al exportar estático (una ruta dinámica, un
+      # `cookies()` colado). Sin este paso, la puerta dejaría pasar un cambio
+      # que rompe el despliegue justo después de mergear.
       - name: Construir el sitio estático
         env:
           # Si falla o falta, `getActivity()` cae al snapshot versionado y lo
@@ -53,13 +68,29 @@ jobs:
           NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_KEY }}
         run: npm run build
 
+      # Subir el artefacto solo cuando va a publicarse. En un PR, `github.ref`
+      # es `refs/pull/N/merge`, así que esta condición ya lo excluye sin
+      # necesidad de mirar el evento.
       - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
         with:
           path: out
 
   deploy:
-    needs: build
+    needs: verify
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    # Un despliegue a la vez, y este sí es global: dos publicaciones simultáneas
+    # compiten por el mismo sitio. No se cancela la que esté en curso,
+    # interrumpir una publicación a medias deja el sitio en un estado peor que
+    # esperar.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
