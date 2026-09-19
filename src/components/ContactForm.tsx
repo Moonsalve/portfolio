@@ -73,6 +73,8 @@ export function ContactForm() {
     setStatus("submitting");
 
     const name = String(data.get("name") ?? "").trim();
+    // Ya cumplió su función arriba; enviarlo solo ensucia el correo que llega.
+    data.delete(HONEYPOT_FIELD);
     data.set("access_key", accessKey);
     data.set("subject", `${form.emailSubject}: ${name}`);
     // Para que el correo se vea de quien escribe y responder funcione de una.
