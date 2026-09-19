@@ -40,7 +40,7 @@ export const es: Dictionary = {
   },
   specs: {
     location: "Ubicación",
-    timezone: "Huso",
+    timezone: "Zona horaria",
     mode: "Modalidad",
     languages: "Idiomas",
   },
