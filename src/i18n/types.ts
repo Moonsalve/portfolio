@@ -135,6 +135,8 @@ export type Dictionary = {
       readonly messagePlaceholder: string;
       /** Campo trampa: invisible para personas, tentador para bots. */
       readonly honeypot: string;
+      /** Prefijo del asunto del correo que llega al buzón. */
+      readonly emailSubject: string;
       readonly submit: string;
       readonly submitting: string;
       readonly success: string;

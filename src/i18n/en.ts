@@ -183,6 +183,7 @@ export const en: Dictionary = {
       emailPlaceholder: "where I should reply",
       messagePlaceholder: "What you're working on",
       honeypot: "Leave this field empty",
+      emailSubject: "Message from the portfolio",
       submit: "Send message",
       submitting: "Sending…",
       success: "Message sent. I reply within 24 hours.",

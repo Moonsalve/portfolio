@@ -50,7 +50,7 @@ jobs:
           # Si falla o falta, `getActivity()` cae al snapshot versionado y lo
           # rotula con su fecha. El sitio nunca se queda sin gráfica.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEXT_PUBLIC_FORMSPREE_ID: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ID }}
+          NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_KEY }}
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3

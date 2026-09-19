@@ -13,8 +13,18 @@ type Errors = Partial<Record<FieldName, string>>;
 /** Suficientemente estricta para atrapar erratas, no tanto como para rechazar correos válidos. */
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/** Campo trampa: los bots llenan todo, las personas no ven este. */
+/** Campo trampa propio: se revisa antes de tocar la red, así que no depende
+ *  de que el servicio de turno lo soporte. */
 const HONEYPOT_FIELD = "_gotcha";
+
+/**
+ * Trampa del lado de Web3Forms. Cubre un caso distinto al anterior: un bot que
+ * lee el HTML y envía directo a la API sin ejecutar nuestro JavaScript. Tiene
+ * que ser una casilla y llamarse así.
+ */
+const SERVICE_HONEYPOT = "botcheck";
+
+const ENDPOINT = "https://api.web3forms.com/submit";
 
 export function ContactForm() {
   const { t, locale } = useLocale();
@@ -23,9 +33,7 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
 
-  const endpoint = site.formspreeId
-    ? `https://formspree.io/f/${site.formspreeId}`
-    : null;
+  const accessKey = site.web3formsKey;
 
   function validate(data: FormData): Errors {
     const next: Errors = {};
@@ -43,7 +51,7 @@ export function ContactForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!endpoint || status === "submitting") return;
+    if (!accessKey || status === "submitting") return;
 
     const element = event.currentTarget;
     const data = new FormData(element);
@@ -63,15 +71,29 @@ export function ContactForm() {
     }
 
     setStatus("submitting");
+
+    const name = String(data.get("name") ?? "").trim();
+    data.set("access_key", accessKey);
+    data.set("subject", `${form.emailSubject}: ${name}`);
+    // Para que el correo se vea de quien escribe y responder funcione de una.
+    data.set("from_name", name);
+    data.set("replyto", String(data.get("email") ?? "").trim());
     data.set("_language", locale);
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(ENDPOINT, {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },
       });
-      if (!response.ok) throw new Error(`Formspree respondió ${response.status}`);
+      // Web3Forms puede responder 200 con `success: false`, así que mirar solo
+      // el estado HTTP daría por enviado un mensaje que nadie recibió.
+      const payload = (await response.json().catch(() => null)) as
+        | { success?: boolean; message?: string }
+        | null;
+      if (!response.ok || payload?.success !== true) {
+        throw new Error(payload?.message ?? `Web3Forms respondió ${response.status}`);
+      }
       setStatus("success");
       element.reset();
     } catch {
@@ -79,7 +101,7 @@ export function ContactForm() {
     }
   }
 
-  if (!endpoint) {
+  if (!accessKey) {
     return (
       <div className={styles.notice} role="note">
         <p>{form.unavailable}</p>
@@ -120,6 +142,7 @@ export function ContactForm() {
       <div className={styles.honeypot} aria-hidden="true">
         <label htmlFor={`${fieldId}-hp`}>{form.honeypot}</label>
         <input id={`${fieldId}-hp`} type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" />
+        <input type="checkbox" name={SERVICE_HONEYPOT} tabIndex={-1} autoComplete="off" />
       </div>
 
       <div className={styles.submitRow}>

@@ -46,11 +46,16 @@ export const site = {
     en: withBasePath("/cv-juan-monsalve-en.pdf"),
   } as Record<"es" | "en", string>,
   /**
-   * ID del formulario de Formspree (`https://formspree.io/f/<id>`), inyectado
-   * en build por `NEXT_PUBLIC_FORMSPREE_ID`. Sin él, el formulario se degrada
-   * a un enlace `mailto:` en vez de fingir un envío que nadie recibiría.
+   * Clave pública de Web3Forms, inyectada en build por
+   * `NEXT_PUBLIC_WEB3FORMS_KEY`. Es pública por diseño: el sitio es estático y
+   * el envío sale del navegador, así que la clave viaja en el bundle. Lo que
+   * protege el buzón es el honeypot y el filtro de dominio del servicio, no el
+   * secreto de esta cadena.
+   *
+   * Sin clave el formulario se degrada a un aviso con el correo directo, en vez
+   * de fingir un envío que nadie recibiría.
    */
-  formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_ID ?? null,
+  web3formsKey: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? null,
 } as const;
 
 export type Site = typeof site;

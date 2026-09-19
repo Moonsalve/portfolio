@@ -183,6 +183,7 @@ export const es: Dictionary = {
       emailPlaceholder: "donde te respondo",
       messagePlaceholder: "En qué estás trabajando",
       honeypot: "No llenes este campo",
+      emailSubject: "Mensaje desde el portafolio",
       submit: "Enviar mensaje",
       submitting: "Enviando…",
       success: "Mensaje enviado. Respondo en menos de 24 horas.",

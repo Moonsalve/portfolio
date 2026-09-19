@@ -21,7 +21,7 @@ Dos sustratos del mismo lenguaje: **impresión suiza industrial** en claro
 | Lenguaje | TypeScript en modo estricto |
 | Estilos | CSS Modules + tokens en `:root` |
 | Tipografía | Archivo · JetBrains Mono, ambas variables (`next/font`) |
-| Formulario | Formspree |
+| Formulario | Web3Forms |
 | Datos | GitHub GraphQL API, con snapshot versionado como respaldo |
 | Pruebas | `node:test` nativo, sin dependencias |
 | Despliegue | Vercel |
@@ -41,13 +41,17 @@ npx tsc --noEmit && npx eslint src   # tipos y lint
 Copiar `.env.example` a `.env.local`:
 
 ```
-NEXT_PUBLIC_FORMSPREE_ID=xxxxxxxx
+NEXT_PUBLIC_WEB3FORMS_KEY=xxxxxxxx-xxxx-xxxx
 GITHUB_TOKEN=ghp_xxxxxxxx
 ```
 
-`NEXT_PUBLIC_FORMSPREE_ID` es el identificador de `https://formspree.io/f/<id>`.
-**Sin él el formulario no se rompe**: se degrada a un aviso que remite al correo
-directo, en vez de fingir un envío que nadie recibiría.
+`NEXT_PUBLIC_WEB3FORMS_KEY` es la clave de acceso de Web3Forms. **Sin ella el
+formulario no se rompe**: se degrada a un aviso que remite al correo directo,
+en vez de fingir un envío que nadie recibiría.
+
+La clave es pública por diseño. El sitio es estático y el envío sale del
+navegador, así que viaja en el bundle; lo que protege el buzón es el honeypot
+y el filtro de dominio del servicio, no el secreto de esa cadena.
 
 `GITHUB_TOKEN` es un token con permiso `read:user`, usado para consultar el
 calendario de contribuciones. **Sin él la traza tampoco se rompe**: cae al
@@ -68,6 +72,17 @@ GitHub cambia como mucho una vez al día; pedirlo en cada visita sería gastar
 cuota para ver lo mismo. Si la API falla, la cuota se agota o el token se
 revoca, se sirve el snapshot: una gráfica que a veces desaparece es peor que
 una gráfica fechada.
+
+**Web3Forms y no Formspree.** Sin servidor el formulario necesita un backend
+externo. Web3Forms da 250 envíos al mes contra los 50 de Formspree y no exige
+cuenta con panel. El costo es que no guarda historial: si el correo se pierde,
+se perdió. A cambio, su API responde `200` con `success: false` cuando algo
+va mal, así que el código comprueba el cuerpo y no solo el estado HTTP; mirar
+solo el estado daría por enviado un mensaje que nadie recibió.
+
+**Dos honeypots, no uno.** El propio se revisa antes de tocar la red y no
+depende del proveedor. El `botcheck` de Web3Forms cubre un caso distinto: un
+bot que lee el HTML y envía directo a su API sin ejecutar nuestro JavaScript.
 
 **El idioma se resuelve en el servidor.** Cookie `locale` primero, luego
 `Accept-Language`. La alternativa —detectar en el cliente y corregir tras
@@ -169,8 +184,8 @@ tests/          pruebas unitarias
 - [ ] **LinkedIn.** `site.linkedin` es `null` a propósito: el handle está sin
       verificar y el de GitHub asumido resultó equivocado. Al confirmarlo, poner
       la URL y el enlace aparece solo, en el encabezado y en el JSON-LD.
-- [ ] **Formspree.** Crear el formulario y poner `NEXT_PUBLIC_FORMSPREE_ID` en
-      las variables de entorno de Vercel.
+- [ ] **Web3Forms.** Obtener la clave en web3forms.com y guardarla como
+      secreto del repositorio (`NEXT_PUBLIC_WEB3FORMS_KEY`).
 - [ ] **CV.** `public/cv-juan-monsalve.pdf` es el que estaba en `~/Downloads`
       con fecha del 1 de septiembre de 2026. Reemplazarlo cuando cambie.
 - [ ] **Token de GitHub** en las variables de Vercel, para que la traza sea
@@ -202,7 +217,7 @@ están marcadas como temporales en `.github/workflows/deploy.yml`.
 
 1. Subir el repo a `github.com/Moonsalve/portfolio`.
 2. Importarlo en Vercel; detecta Next.js sin configuración.
-3. Definir `NEXT_PUBLIC_FORMSPREE_ID` en las variables del proyecto.
+3. Definir `NEXT_PUBLIC_WEB3FORMS_KEY` en los secretos del repositorio.
 4. Apuntar el dominio y actualizar `site.url`.
 5. Verificar HTTPS, `sitemap.xml`, `robots.txt` y la previsualización del enlace
    (`/opengraph-image`).
