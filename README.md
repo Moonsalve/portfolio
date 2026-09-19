@@ -24,17 +24,44 @@ Dos sustratos del mismo lenguaje: **impresión suiza industrial** en claro
 | Formulario | Web3Forms |
 | Datos | GitHub GraphQL API, con snapshot versionado como respaldo |
 | Pruebas | `node:test` nativo, sin dependencias |
-| Despliegue | Vercel |
+| Despliegue | GitHub Pages, export estático, en https://jmonsalve.dev |
 
 ## Comandos
 
 ```bash
 npm run dev     # desarrollo en http://localhost:3000
-npm run build   # build de producción
-npm start       # servir el build
+npm run build   # build de producción; deja el sitio estático en out/
+npx serve out   # servir ese build (no `npm start`: el sitio es un export)
 npm test        # pruebas unitarias
 npx tsc --noEmit && npx eslint src   # tipos y lint
 ```
+
+## Flujo de ramas
+
+`main` es producción: lo que esté ahí es lo que sirve https://jmonsalve.dev.
+Está protegida y **no acepta push directo**. `dev` es la rama de trabajo.
+
+```bash
+git switch dev
+git pull
+# ...commits...
+git push                          # esto dispara la verificación, no un despliegue
+gh pr create --base main --head dev
+# cuando el check "Verificar y construir" esté verde:
+gh pr merge --merge
+git switch dev && git merge --ff-only origin/main   # dejar dev al día
+```
+
+Ese último paso importa: sin él, `dev` se queda detrás de `main` y el
+siguiente PR arrastra un diff falso.
+
+Se mergea con **merge commit**, no con squash. Con una rama de larga vida el
+squash reescribe los commits y `dev` queda divergido de `main` después de cada
+merge, lo que obliga a resetearla a mano cada vez. El merge commit conserva la
+ascendencia y deja que `dev` avance con un fast-forward.
+
+Para experimentos que no quieres mezclar, ramifica desde `dev` y abre el PR
+contra `dev`; esa rama no está protegida y acepta push directo.
 
 ## Variables de entorno
 
